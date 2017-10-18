@@ -8,6 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.IO;
+using ExcelReadAndWrite.Com;
+using ExcelReadAndWrite.Epplus;
+using ExcelReadAndWrite.Base;
 
 namespace ExcelReadAndWrite
 {
@@ -20,16 +24,29 @@ namespace ExcelReadAndWrite
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Thread newt = new Thread(NewThread);
-            newt.Start();
+            object fileName = @"D:\CSharpDevelop\ExcelRW\test.xlsx";
+            if (!File.Exists(fileName.ToString()))
+            {
+                MessageBox.Show("Path not exists");
+                return;
+            }
+            ParameterizedThreadStart ParStart = new ParameterizedThreadStart(Read);
+            Thread newt = new Thread(ParStart);
+            newt.Start(fileName);
            
             
         }
 
-        private void NewThread()
+
+
+        private void Read(object fileName)
         {
-            Thread.Sleep(5000);
+            ComWorkbook workbook = new ComWorkbook();
+            workbook.LoadWorkBook(fileName.ToString());
+            var t = workbook.WorkSheets.First().GetTableContent();
             MessageBox.Show("ok");
+            workbook.ReleaseReSource();
+           
         }
 
     }

@@ -11,11 +11,9 @@ namespace ExcelReadAndWrite.Base
     {
         #region Field
 
-        private string _sheetName;
+        protected string _sheetName;
 
-        private DataTable _tableContent;
-
-        private bool _hasHeader;
+        protected DataTable _tableContent;
 
         #endregion
 
@@ -25,12 +23,21 @@ namespace ExcelReadAndWrite.Base
         {
             get { return _sheetName; }
         }
-        
+
+        #endregion
+
+        #region Constructor
+        public ExcelWorkSheetBase()
+        {
+
+        }
         #endregion
 
         #region Abstract Functions
 
         public abstract string GetCellValue(int rowNumber,int columNumber);
+
+        public abstract DataTable GetTableContent();
 
         #endregion
 

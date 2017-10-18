@@ -17,6 +17,13 @@ namespace ExcelReadAndWrite.Base
         public List<ExcelWorkSheetBase> WorkSheets { get { return _workSheets; } }
         #endregion
 
+        #region Constructor
+        public ExcelWorkbookBase()
+        {
+            _workSheets = new List<ExcelWorkSheetBase>();
+        }
+        #endregion
+
         #region Absrtract Fuctions
 
         public abstract void LoadWorkBook(string fileName);
@@ -24,8 +31,6 @@ namespace ExcelReadAndWrite.Base
         public abstract void SaveWorkBook(string fileName);
 
         public abstract ExcelWorkSheetBase GetSheet(string sheetName);
-
-        public abstract void SaveWorkSheet();
         #endregion
     }
 }
