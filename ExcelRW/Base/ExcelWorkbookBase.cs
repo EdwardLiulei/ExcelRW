@@ -8,13 +8,13 @@ namespace ExcelReadAndWrite.Base
     public abstract class ExcelWorkbookBase
     {
         #region Filed
-        protected List<string> _workSheets;
+        protected List<ExcelWorkSheetBase> _workSheets;
 
         #endregion
 
         #region Properity
 
-        public List<string> WorkSheets { get { return _workSheets; } }
+        public List<ExcelWorkSheetBase> WorkSheets { get { return _workSheets; } }
         #endregion
 
         #region Absrtract Fuctions
