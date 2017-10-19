@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExcelReadAndWrite.Base;
+using ExcelReadAndWrite.StdExcelModel;
 using OfficeOpenXml;
 using System.IO;
 
@@ -22,7 +22,7 @@ namespace ExcelReadAndWrite.Epplus
 
         #endregion
 
-        public override void LoadWorkBook(string fileName)
+        public override void Load(string fileName)
         {
             if (!File.Exists(fileName))
                 throw new Exception(string.Format("The file: {0} does not exists",fileName));
@@ -35,7 +35,7 @@ namespace ExcelReadAndWrite.Epplus
             }
         }
 
-        public override void SaveWorkBook(string fileName)
+        public override void Save(string fileName)
         {
             ExcelPackage package = new ExcelPackage();
             

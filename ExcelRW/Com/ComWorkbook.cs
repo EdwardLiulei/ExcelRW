@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExcelReadAndWrite.Base;
+using ExcelReadAndWrite.StdExcelModel;
 using Microsoft.Office.Interop.Excel;
 
 namespace ExcelReadAndWrite.Com
@@ -16,7 +16,7 @@ namespace ExcelReadAndWrite.Com
             throw new NotImplementedException();
         }
 
-        public override void LoadWorkBook(string fileName)
+        public override void Load(string fileName)
         {
             _xApp = new Application();
             _workbook = _xApp.Workbooks.Open(fileName);
@@ -28,7 +28,7 @@ namespace ExcelReadAndWrite.Com
             //throw new NotImplementedException();
         }
 
-        public override void SaveWorkBook(string fileName)
+        public override void Save(string fileName)
         {
             _workbook.SaveAs(fileName);
 

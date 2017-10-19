@@ -11,7 +11,10 @@ using System.Threading;
 using System.IO;
 using ExcelReadAndWrite.Com;
 using ExcelReadAndWrite.Epplus;
-using ExcelReadAndWrite.Base;
+using ExcelReadAndWrite.StdExcelModel;
+using ExcelReadAndWrite.Oledb;
+using ExcelReadAndWrite.NPOI;
+using ExcelReadAndWrite.StdExcelModel.BaseModel;
 
 namespace ExcelReadAndWrite
 {
@@ -24,7 +27,7 @@ namespace ExcelReadAndWrite
 
         private void button1_Click(object sender, EventArgs e)
         {
-            object fileName = @"D:\CSharpDevelop\ExcelRW\test.xlsx";
+            object fileName = @"D:\Projects\ExcelRW\test.xls";
             if (!File.Exists(fileName.ToString()))
             {
                 MessageBox.Show("Path not exists");
@@ -41,11 +44,12 @@ namespace ExcelReadAndWrite
 
         private void Read(object fileName)
         {
-            ComWorkbook workbook = new ComWorkbook();
-            workbook.LoadWorkBook(fileName.ToString());
+            IStdWorkbook workbook = new NpoiWorkbook();
+            workbook.Load(fileName.ToString());
+            
             var t = workbook.WorkSheets.First().GetTableContent();
             MessageBox.Show("ok");
-            workbook.ReleaseReSource();
+            //workbook.ReleaseReSource();
            
         }
 
