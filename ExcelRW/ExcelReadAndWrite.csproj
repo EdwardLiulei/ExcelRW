@@ -68,14 +68,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Com\ComExcelCell.cs" />
+    <Compile Include="NPOI\NpoiExcelCell.cs" />
+    <Compile Include="StdExcelModel\StdExcelColumnBase.cs" />
+    <Compile Include="StdExcelModel\StdExcelRangeBase.cs" />
+    <Compile Include="StdExcelModel\BaseModel\IStdSheetCompo.cs" />
+    <Compile Include="StdExcelModel\StdExcelCellBase.cs" />
     <Compile Include="StdExcelModel\BaseModel\IStdCell.cs" />
     <Compile Include="StdExcelModel\BaseModel\IStdColumn.cs" />
     <Compile Include="StdExcelModel\BaseModel\IStdRange.cs" />
     <Compile Include="StdExcelModel\BaseModel\IStdRow.cs" />
     <Compile Include="StdExcelModel\BaseModel\IStdWorkbook.cs" />
     <Compile Include="StdExcelModel\BaseModel\IStdWorksheet.cs" />
-    <Compile Include="StdExcelModel\ExcelWorkbookBase.cs" />
-    <Compile Include="StdExcelModel\ExcelWorkSheetBase.cs" />
+    <Compile Include="StdExcelModel\StdExcelRowBase.cs" />
+    <Compile Include="StdExcelModel\StdExcelWorkbookBase.cs" />
+    <Compile Include="StdExcelModel\StdExcelWorkSheetBase.cs" />
     <Compile Include="Com\ComWorkbook.cs" />
     <Compile Include="Com\ComWorksheet.cs" />
     <Compile Include="Epplus\EpWorkbook.cs" />

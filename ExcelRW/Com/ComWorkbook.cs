@@ -4,16 +4,26 @@ using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
 using Microsoft.Office.Interop.Excel;
+using System.Linq;
 
 namespace ExcelReadAndWrite.Com
 {
-    public class ComWorkbook:ExcelWorkbookBase
+    public class ComWorkbook:StdExcelWorkbookBase
     {
+        #region Field
         private Workbook _workbook;
         private Application _xApp;
-        public override ExcelWorkSheetBase GetSheet(string sheetName)
+        #endregion
+
+        public override StdExcelWorkSheetBase GetSheet(string sheetName)
         {
-            throw new NotImplementedException();
+            StdExcelWorkSheetBase targetSheet =null;
+            foreach (Worksheet worksheet in _workbook.Worksheets)
+            {
+                if (worksheet.Name.Equals(sheetName, StringComparison.OrdinalIgnoreCase))
+                    targetSheet = new ComWorksheet(worksheet);
+            }
+            return targetSheet;
         }
 
         public override void Load(string fileName)
@@ -32,12 +42,11 @@ namespace ExcelReadAndWrite.Com
         {
             _workbook.SaveAs(fileName);
 
-            ReleaseReSource();
+            //ReleaseReSource();
             //throw new NotImplementedException();
         }
 
-
-        public void ReleaseReSource()
+        ~ComWorkbook()
         {
             if (_workbook == null)
                 return;

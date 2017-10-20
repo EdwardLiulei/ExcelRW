@@ -10,7 +10,7 @@ using System.IO;
 
 namespace ExcelReadAndWrite.NPOI
 {
-    public class NpoiWorkbook:ExcelWorkbookBase
+    public class NpoiWorkbook:StdExcelWorkbookBase
     {
         private IWorkbook _npoiWorkbook;
         public override void Load(string fileName)
@@ -44,7 +44,7 @@ namespace ExcelReadAndWrite.NPOI
             throw new NotImplementedException();
         }
 
-        public override ExcelWorkSheetBase GetSheet(string sheetName)
+        public override StdExcelWorkSheetBase GetSheet(string sheetName)
         {
             throw new NotImplementedException();
         }

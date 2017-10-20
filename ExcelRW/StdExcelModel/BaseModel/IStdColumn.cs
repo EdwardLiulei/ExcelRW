@@ -5,7 +5,8 @@ using System.Text;
 
 namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
-    public interface IStdColumn
+    public interface IStdColumn:IStdSheetCompo
     {
+        void SetWidth(int width);
     }
 }

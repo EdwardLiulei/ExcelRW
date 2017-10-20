@@ -6,22 +6,22 @@ using ExcelReadAndWrite.StdExcelModel.BaseModel;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {
-    public abstract class ExcelWorkbookBase:IStdWorkbook
+    public abstract class StdExcelWorkbookBase:IStdWorkbook
     {
         #region Filed
-        protected List<ExcelWorkSheetBase> _workSheets;
+        protected List<StdExcelWorkSheetBase> _workSheets;
 
         #endregion
 
         #region Properity
 
-        public List<ExcelWorkSheetBase> WorkSheets { get { return _workSheets; } }
+        public List<StdExcelWorkSheetBase> WorkSheets { get { return _workSheets; } }
         #endregion
 
         #region Constructor
-        public ExcelWorkbookBase()
+        public StdExcelWorkbookBase()
         {
-            _workSheets = new List<ExcelWorkSheetBase>();
+            _workSheets = new List<StdExcelWorkSheetBase>();
         }
         #endregion
 
@@ -32,7 +32,7 @@ namespace ExcelReadAndWrite.StdExcelModel
         public abstract void Save(string fileName);
         #endregion
 
-        public abstract ExcelWorkSheetBase GetSheet(string sheetName);
+        public abstract StdExcelWorkSheetBase GetSheet(string sheetName);
 
         
 
@@ -46,12 +46,12 @@ namespace ExcelReadAndWrite.StdExcelModel
             return _workSheets.Count();
         }
 
-        public ExcelWorkSheetBase GetSheetByName(string sheetName)
+        public StdExcelWorkSheetBase GetSheetByName(string sheetName)
         {
             return _workSheets.Find(p => p.GetSheetName().Equals(sheetName,StringComparison.OrdinalIgnoreCase));
         }
 
-        public ExcelWorkSheetBase GetSheetByIndex(int index)
+        public StdExcelWorkSheetBase GetSheetByIndex(int index)
         {
             return _workSheets[index];
         }
@@ -61,12 +61,12 @@ namespace ExcelReadAndWrite.StdExcelModel
             return _workSheets[index].GetSheetName();
         }
 
-        public ExcelWorkSheetBase CloneSheet(int index)
+        public StdExcelWorkSheetBase CloneSheet(int index)
         {
             throw new NotImplementedException();
         }
 
-        public ExcelWorkSheetBase CloneSheet(string sheetName)
+        public StdExcelWorkSheetBase CloneSheet(string sheetName)
         {
             throw new NotImplementedException();
         }

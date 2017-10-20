@@ -7,7 +7,7 @@ using System.Drawing.Text;
 
 namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
-    public interface IStdCell
+    public interface IStdCell:IStdSheetCompo
     {
         string GetValue();
 
@@ -16,15 +16,5 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
         void SetValue(string value);
 
         void SetFormular(string formular);
-
-        void SetFontStyle(Font font);
-
-        void SetBold();
-
-        void SetItalic();
-
-        void SetBackgroudColor(Color color);
-
-        void SetFontColor(Color color);
     }
 }

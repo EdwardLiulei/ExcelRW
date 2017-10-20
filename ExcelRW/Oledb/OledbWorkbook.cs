@@ -7,7 +7,7 @@ using System.Data.OleDb;
 
 namespace ExcelReadAndWrite.Oledb
 {
-    public class OledbWorkbook:ExcelWorkbookBase
+    public class OledbWorkbook:StdExcelWorkbookBase
     {
         private string _connectStr;
 
@@ -36,7 +36,7 @@ namespace ExcelReadAndWrite.Oledb
             throw new NotImplementedException();
         }
 
-        public override ExcelWorkSheetBase GetSheet(string sheetName)
+        public override StdExcelWorkSheetBase GetSheet(string sheetName)
         {
             throw new NotImplementedException();
         }

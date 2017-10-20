@@ -7,19 +7,19 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
     public interface IStdWorkbook
     {
-        List<ExcelWorkSheetBase>WorkSheets { get; }
+        List<StdExcelWorkSheetBase>WorkSheets { get; }
         void Load(string fileName);
         void Save(string fileName);
 
         List<string> GetSheetList();
         int GetSheetCount();
-        ExcelWorkSheetBase GetSheetByName(string sheetName);
-        ExcelWorkSheetBase GetSheetByIndex(int index);
+        StdExcelWorkSheetBase GetSheetByName(string sheetName);
+        StdExcelWorkSheetBase GetSheetByIndex(int index);
 
         string GetSheetNameByIndex(int index);
 
-        ExcelWorkSheetBase CloneSheet(int index);
-        ExcelWorkSheetBase CloneSheet(string sheetName);
+        StdExcelWorkSheetBase CloneSheet(int index);
+        StdExcelWorkSheetBase CloneSheet(string sheetName);
 
         bool Is1904();
 

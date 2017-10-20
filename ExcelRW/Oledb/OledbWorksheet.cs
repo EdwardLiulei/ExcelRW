@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
+using DataTable = System.Data.DataTable;
 
 namespace ExcelReadAndWrite.Oledb
 {
-    public class OledbWorksheet:ExcelWorkSheetBase
+    public class OledbWorksheet:StdExcelWorkSheetBase
     {
         private string _connectStr;
+        private DataTable _tableContent;
 
         public OledbWorksheet(string sheetName,string connectStr)
         {
@@ -25,5 +27,55 @@ namespace ExcelReadAndWrite.Oledb
         {
             throw new NotImplementedException();
         }
+
+      
+
+
+        public override StdExcelRangeBase GetRange()
+        {
+            return null;
+        }
+
+        public override StdExcelCellBase GetCell(int rowNum, int columnNum)
+        {
+            return null;
+        }
+
+        public override string GetCellFormular(int rowNum, int columnNum)
+        {
+            return null;
+        }
+
+        public override StdExcelRowBase GetRow(int index)
+        {
+            return null;
+        }
+
+        public override StdExcelColumnBase GetColumn(int index)
+        {
+            return null;
+        }
+
+        public override void InsertRow(int index)
+        { }
+
+        public override void InsertColumn(int index)
+        { }
+
+        public override void SetCellValue(string value, int rowNum, int columnNum)
+        { }
+
+        public override void SetCellFormular(string formular, int rowNum, int columnNum)
+        { }
+
+        public override void SetRangeColor(StdExcelRangeBase range, System.Drawing.Color color)
+        { }
+
+        public override void SetCellColor(int rowNum, int columnNum, System.Drawing.Color color)
+        { }
+
+        public override void MergeCell(StdExcelRangeBase range) { }
+
+        public override void MergeCell(int startRow, int startCol, int endRow, int endCol) { }
     }
 }

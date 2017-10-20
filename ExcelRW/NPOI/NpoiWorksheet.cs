@@ -11,7 +11,7 @@ using System.Data;
 
 namespace ExcelReadAndWrite.NPOI
 {
-    public class NpoiWorksheet:ExcelWorkSheetBase
+    public class NpoiWorksheet:StdExcelWorkSheetBase
     {
         private ISheet _npoiWorsheet;
 
@@ -23,7 +23,9 @@ namespace ExcelReadAndWrite.NPOI
 
         public override string GetCellValue(int rowNumber, int columNumber)
         {
-            throw new NotImplementedException();
+            ICell cell = _npoiWorsheet.GetRow(rowNumber).GetCell(columNumber);
+            return GetCellValue(cell).ToString();
+            //throw new NotImplementedException();
         }
 
         public override System.Data.DataTable GetTableContent()
@@ -50,13 +52,11 @@ namespace ExcelReadAndWrite.NPOI
                     for (int i = firstRow.FirstCellNum; i < cellCount; ++i)
                     {
                         cell = firstRow.GetCell(i);
-                        if (cell != null)
-                        {
-                            string cellValue = GetCellValue(cell).ToString();
-                            column = new DataColumn(cellValue);
-                            dataTable.Columns.Add(column);
 
-                        }
+                        string cellValue = GetCellValue(cell).ToString();
+                        column = new DataColumn(cellValue);
+                        dataTable.Columns.Add(column);
+
                     }
                 }
                 else
@@ -140,5 +140,53 @@ namespace ExcelReadAndWrite.NPOI
 
             return value;
         }
+
+
+        public override StdExcelRangeBase GetRange()
+        {
+            return null;
+        }
+
+        public override StdExcelCellBase GetCell(int rowNum, int columnNum)
+        {
+            return null;
+        }
+
+        public override string GetCellFormular(int rowNum, int columnNum)
+        {
+            return null;
+        }
+
+        public override StdExcelRowBase GetRow(int index)
+        {
+            return null;
+        }
+
+        public override StdExcelColumnBase GetColumn(int index)
+        {
+            return null;
+        }
+
+        public override void InsertRow(int index)
+        { }
+
+        public override void InsertColumn(int index)
+        { }
+
+        public override void SetCellValue(string value, int rowNum, int columnNum)
+        { }
+
+        public override void SetCellFormular(string formular, int rowNum, int columnNum)
+        { }
+
+        public override void SetRangeColor(StdExcelRangeBase range, System.Drawing.Color color)
+        { }
+
+        public override void SetCellColor(int rowNum, int columnNum, System.Drawing.Color color)
+        { }
+
+        public override void MergeCell(StdExcelRangeBase range) { }
+
+        public override void MergeCell(int startRow, int startCol, int endRow, int endCol) { }
     }
 }
