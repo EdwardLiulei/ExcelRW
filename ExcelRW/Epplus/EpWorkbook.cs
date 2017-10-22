@@ -9,13 +9,13 @@ using System.IO;
 
 namespace ExcelReadAndWrite.Epplus
 {
-    public class EpWorkbook:ExcelWorkbookBase
+    public class EpWorkbook:StdExcelWorkbookBase
     {
 
-        #region
+        #region Field
         private ExcelWorkbook _workbook;
 
-        public override ExcelWorkSheetBase GetSheet(string sheetName)
+        public override StdExcelWorkSheetBase GetSheet(string sheetName)
         {
             throw new NotImplementedException();
         }

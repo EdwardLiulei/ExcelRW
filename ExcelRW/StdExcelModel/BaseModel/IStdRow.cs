@@ -5,7 +5,8 @@ using System.Text;
 
 namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
-    public interface IStdRow
+    public interface IStdRow:IStdSheetCompo
     {
+        void SetHeight(int height);
     }
 }

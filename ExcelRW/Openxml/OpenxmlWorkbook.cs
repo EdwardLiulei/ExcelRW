@@ -8,10 +8,10 @@ using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace ExcelReadAndWrite.Openxml
 {
-    public class OpenxmlWorkbook : ExcelWorkbookBase
+    public class OpenxmlWorkbook : StdExcelWorkbookBase
     {
         private WorkbookPart _xmlWorkbook;
-        public override ExcelWorkSheetBase GetSheet(string sheetName)
+        public override StdExcelWorkSheetBase GetSheet(string sheetName)
         {
             throw new NotImplementedException();
         }
