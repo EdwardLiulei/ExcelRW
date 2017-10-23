@@ -8,3 +8,16 @@ ExcelRW/bin/Debug/ExcelReadAndWrite.dll
 ExcelRW/bin/Debug/NPOI.dll
 ExcelRW/bin/Debug/ExcelReadAndWrite.pdb
 ExcelRW/bin/Debug/ICSharpCode.SharpZipLib.dll
+ExcelRW/bin/Debug/NPOI.OOXML.dll
+ExcelRW/bin/Debug/NPOI.OpenXml4Net.dll
+*.suo
+*.suo
+*.dll
+*.xml
+*.cache
+*.txt
+*.xls
+*.xlsx
+*.pdb
+*.suo
+*.suo
