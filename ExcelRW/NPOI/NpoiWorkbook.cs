@@ -41,12 +41,15 @@ namespace ExcelReadAndWrite.NPOI
 
         public override void Save(string fileName)
         {
-            throw new NotImplementedException();
+            using (var wook = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            {
+                _npoiWorkbook.Write(wook);
+            }
         }
 
         public override StdExcelWorkSheetBase GetSheet(string sheetName)
         {
-            throw new NotImplementedException();
+            return _workSheets.Find(p => p.SheetName.Equals(sheetName, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

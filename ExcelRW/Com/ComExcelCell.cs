@@ -58,6 +58,7 @@ namespace ExcelReadAndWrite.Com
 
         public override void SetBackgroudColor(Color color) 
         {
+            
             _comCell.Interior.Color = System.Drawing.Color.FromArgb(color.A, color.B, color.G, color.R).ToArgb();
         }
 

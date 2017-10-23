@@ -19,6 +19,15 @@ namespace ExcelReadAndWrite.NPOI
 
         #endregion
 
+        #region Constructor
+        public NpoiExcelCell(ICell cell)
+        {
+            _npoiCell = cell; 
+        }
+
+        #endregion
+
+
         public override string GetValue()
         {
             ICell cell = _npoiCell;
@@ -96,13 +105,67 @@ namespace ExcelReadAndWrite.NPOI
 
         public override void SetBackgroudColor(Color color)
         {
-            
-            
+            IWorkbook workbook = _npoiCell.Sheet.Workbook;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            cellStyle.CloneStyleFrom(_npoiCell.CellStyle);
+            if (workbook is HSSFWorkbook)
+            {
+                HSSFWorkbook hssfWorkbook = (HSSFWorkbook)workbook;
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+
+                cellStyle.FillPattern = FillPattern.SolidForeground;
+
+                cellStyle.FillForegroundColor = hssFColor.Indexed;
+                
+            }
+            else
+            {
+                HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+
+                cellStyle.FillPattern = FillPattern.SolidForeground;
+
+                cellStyle.FillForegroundColor = hssFColor.Indexed;
+                //No way!
+            }
+            _npoiCell.CellStyle = cellStyle;
+
         }
 
+       
         public override void SetFontColor(Color color)
         {
-            
+            IWorkbook workbook = _npoiCell.Sheet.Workbook;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            if (workbook is HSSFWorkbook)
+            {
+                HSSFWorkbook hssfWorkbook = (HSSFWorkbook)workbook;
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+                cellStyle.CloneStyleFrom(_npoiCell.CellStyle);
+
+                IFont font = cellStyle.GetFont(workbook);
+                font.Color = hssFColor.Indexed;
+                cellStyle.SetFont(font);
+                _npoiCell.CellStyle = cellStyle;
+
+            }
+            else
+            {
+               
+                //No way!
+            }
         }
     }
 }

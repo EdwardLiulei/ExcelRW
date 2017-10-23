@@ -44,7 +44,7 @@ namespace ExcelReadAndWrite
 
         private void Read(object fileName)
         {
-            IStdWorkbook workbook = new ComWorkbook();
+            IStdWorkbook workbook = new NpoiWorkbook();
             workbook.Load(fileName.ToString());
             
             var t = workbook.WorkSheets.First().GetTableContent();

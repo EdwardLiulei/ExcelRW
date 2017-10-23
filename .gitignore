@@ -21,3 +21,6 @@ ExcelRW/bin/Debug/NPOI.OpenXml4Net.dll
 *.pdb
 *.suo
 *.suo
+ExcelReadAndWrite.suo
+.vs/ExcelReadAndWrite/v15/.suo
+ExcelReadAndWrite.suo

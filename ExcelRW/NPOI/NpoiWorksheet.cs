@@ -149,7 +149,8 @@ namespace ExcelReadAndWrite.NPOI
 
         public override StdExcelCellBase GetCell(int rowNum, int columnNum)
         {
-            return null;
+            ICell cell= _npoiWorsheet.GetRow(rowNum-1).GetCell(columnNum-1);
+            return new NpoiExcelCell(cell);
         }
 
         public override string GetCellFormular(int rowNum, int columnNum)

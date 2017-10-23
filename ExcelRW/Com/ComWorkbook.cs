@@ -13,6 +13,7 @@ namespace ExcelReadAndWrite.Com
         #region Field
         private Workbook _workbook;
         private Application _xApp;
+        private string _fileName;
         #endregion
 
         public override StdExcelWorkSheetBase GetSheet(string sheetName)
@@ -29,6 +30,7 @@ namespace ExcelReadAndWrite.Com
         public override void Load(string fileName)
         {
             _xApp = new Application();
+            _fileName = fileName;
             _workbook = _xApp.Workbooks.Open(fileName);
             foreach (Worksheet sheet in _workbook.Worksheets)
             {
@@ -40,7 +42,10 @@ namespace ExcelReadAndWrite.Com
 
         public override void Save(string fileName)
         {
-            _workbook.SaveAs(fileName);
+            if (fileName == _fileName)
+                _workbook.Save();
+            else
+                _workbook.SaveAs(fileName);
 
             //ReleaseReSource();
             //throw new NotImplementedException();
