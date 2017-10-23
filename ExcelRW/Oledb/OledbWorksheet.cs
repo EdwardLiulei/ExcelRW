@@ -28,10 +28,10 @@ namespace ExcelReadAndWrite.Oledb
             throw new NotImplementedException();
         }
 
-      
 
 
-        public override StdExcelRangeBase GetRange()
+
+        public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
             return null;
         }
@@ -41,7 +41,7 @@ namespace ExcelReadAndWrite.Oledb
             return null;
         }
 
-        public override string GetCellFormular(int rowNum, int columnNum)
+        public override string GetCellFormula(int rowNum, int columnNum)
         {
             return null;
         }
@@ -65,7 +65,7 @@ namespace ExcelReadAndWrite.Oledb
         public override void SetCellValue(string value, int rowNum, int columnNum)
         { }
 
-        public override void SetCellFormular(string formular, int rowNum, int columnNum)
+        public override void SetCellFormula(string formular, int rowNum, int columnNum)
         { }
 
         public override void SetRangeColor(StdExcelRangeBase range, System.Drawing.Color color)

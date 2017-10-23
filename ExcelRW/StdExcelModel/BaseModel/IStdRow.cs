@@ -8,5 +8,7 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
     public interface IStdRow:IStdSheetCompo
     {
         void SetHeight(int height);
+
+        StdExcelCellBase GetCell(int rowNum);
     }
 }

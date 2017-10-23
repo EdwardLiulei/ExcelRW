@@ -17,6 +17,10 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 
         void SetItalic();
 
+        void UnBold();
+
+        void UnItalic();
+
         void SetBackgroudColor(Color color);
 
         void SetFontColor(Color color);

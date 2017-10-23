@@ -142,7 +142,7 @@ namespace ExcelReadAndWrite.NPOI
         }
 
 
-        public override StdExcelRangeBase GetRange()
+        public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
             return null;
         }
@@ -153,7 +153,7 @@ namespace ExcelReadAndWrite.NPOI
             return new NpoiExcelCell(cell);
         }
 
-        public override string GetCellFormular(int rowNum, int columnNum)
+        public override string GetCellFormula(int rowNum, int columnNum)
         {
             return null;
         }
@@ -177,7 +177,7 @@ namespace ExcelReadAndWrite.NPOI
         public override void SetCellValue(string value, int rowNum, int columnNum)
         { }
 
-        public override void SetCellFormular(string formular, int rowNum, int columnNum)
+        public override void SetCellFormula(string formular, int rowNum, int columnNum)
         { }
 
         public override void SetRangeColor(StdExcelRangeBase range, System.Drawing.Color color)

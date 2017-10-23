@@ -42,6 +42,9 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
@@ -70,7 +73,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Com\ComExcelCell.cs" />
+    <Compile Include="Com\ComExcelColumn.cs" />
     <Compile Include="Com\ComExcelRange.cs" />
+    <Compile Include="Com\ComExcelRow.cs" />
+    <Compile Include="Epplus\EpExcelCell.cs" />
+    <Compile Include="Epplus\EpExcelColumn.cs" />
+    <Compile Include="Epplus\EpExcelRange.cs" />
+    <Compile Include="Epplus\EpExcelRow.cs" />
     <Compile Include="NPOI\NpoiExcelCell.cs" />
     <Compile Include="Openxml\OpenxmlWorkbook.cs" />
     <Compile Include="Openxml\OpenxmlWorksheet.cs" />
@@ -109,15 +118,6 @@
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
       <VersionMinor>5</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>9</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

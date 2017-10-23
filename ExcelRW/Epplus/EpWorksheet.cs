@@ -33,45 +33,62 @@ namespace ExcelReadAndWrite.Epplus
 
         public override string GetCellValue(int rowNumber, int columNumber)
         {
-            return _worksheet.Cells[rowNumber, columNumber].Value.ToString();
+            if (_worksheet.Cells[rowNumber, columNumber].Value == null)
+                return "";
+            else
+                return _worksheet.Cells[rowNumber, columNumber].Value.ToString();
         }
 
 
-        public override ExcelReadAndWrite.StdExcelModel.StdExcelRangeBase GetRange()
+        public override ExcelReadAndWrite.StdExcelModel.StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
-            return null;
+            ExcelRange range = _worksheet.SelectedRange[startRow, startCol, endRow, endCol];
+
+            return new EpExcelRange(range);
         }
 
         public override ExcelReadAndWrite.StdExcelModel.StdExcelCellBase GetCell(int rowNum, int columnNum)
         {
-            return null;
+            ExcelRange range = _worksheet.Cells[rowNum, columnNum];
+
+            return new EpExcelCell(range);
         }
 
-        public override string GetCellFormular(int rowNum, int columnNum)
+        public override string GetCellFormula(int rowNum, int columnNum)
         {
-            return null;
+            if (_worksheet.Cells[rowNum, columnNum].Value == null)
+                return "";
+            else
+                return _worksheet.Cells[rowNum, columnNum].Formula;
         }
 
         public override StdExcelRowBase GetRow(int index)
         {
-            return null;
+            var row= _worksheet.Row(index);
+            return new EpExcelRow(row);
         }
 
         public override StdExcelColumnBase GetColumn(int index)
         {
-            return null;
+            var column = _worksheet.Column(index);
+
+            return new EpExcelColumn(column);
         }
 
         public override void InsertRow(int index)
-        { }
+        {
+            _worksheet.InsertRow(index,index);
+        }
 
         public override void InsertColumn(int index)
-        { }
+        {
+            _worksheet.InsertColumn(index, index);
+        }
 
         public override void SetCellValue(string value, int rowNum, int columnNum)
         { }
 
-        public override void SetCellFormular(string formular, int rowNum, int columnNum)
+        public override void SetCellFormula(string formular, int rowNum, int columnNum)
         { }
 
         public override void SetRangeColor(ExcelReadAndWrite.StdExcelModel.StdExcelRangeBase range, System.Drawing.Color color)

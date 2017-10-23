@@ -23,11 +23,17 @@ namespace ExcelReadAndWrite.StdExcelModel
 
         public abstract void SetItalic();
 
+        public abstract void UnBold();
+
+        public abstract void UnItalic();
+
         public abstract void SetBackgroudColor(Color color);
 
         public abstract void SetFontColor(Color color);
 
         public abstract void SetHeight(int height);
+
+        public abstract StdExcelCellBase GetCell(int columnNum);
 
         #endregion
     }

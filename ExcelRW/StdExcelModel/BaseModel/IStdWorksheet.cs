@@ -12,7 +12,7 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
         
         string GetSheetName();
 
-        IStdRange GetRange();
+        IStdRange GetRange(int startRow, int startCol, int endRow, int endCol);
 
         IStdCell GetCell(int rowNum, int columnNum);
 

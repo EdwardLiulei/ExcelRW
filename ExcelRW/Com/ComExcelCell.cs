@@ -24,7 +24,8 @@ namespace ExcelReadAndWrite.Com
         #endregion
         public override string GetValue()
         {
-            return _comCell.Value;
+            object o = _comCell.Value;
+            return o.ToString();
         }
 
         public override void SetValue(string value)
@@ -39,21 +40,32 @@ namespace ExcelReadAndWrite.Com
 
         public override void SetFontStyle(System.Drawing.Font font) 
         {
+           
             _comCell.Font.Name =  font.Name;
             _comCell.Font.Size = font.Size;
             _comCell.Font.Bold = font.Bold;
             _comCell.Font.Italic = font.Italic;
-            
+            _comCell.Font.Underline = font.Underline;
         }
 
         public override void SetBold() 
         {
-            _comCell.Font.Bold = !_comCell.Font.Bold;
+            _comCell.Font.Bold = true;
         }
 
         public override void SetItalic() 
         {
-            _comCell.Font.Italic = !_comCell.Font.Italic;
+            _comCell.Font.Italic = true;
+        }
+
+        public override void UnBold()
+        {
+            _comCell.Font.Bold = false;
+        }
+
+        public override void UnItalic()
+        {
+            _comCell.Font.Italic = false;
         }
 
         public override void SetBackgroudColor(Color color) 

@@ -8,5 +8,7 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
     public interface IStdColumn:IStdSheetCompo
     {
         void SetWidth(int width);
+
+        StdExcelCellBase GetCell(int columnNum);
     }
 }

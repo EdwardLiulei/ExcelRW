@@ -15,7 +15,7 @@ namespace ExcelReadAndWrite.Openxml
             throw new NotImplementedException();
         }
 
-        public override string GetCellFormular(int rowNum, int columnNum)
+        public override string GetCellFormula(int rowNum, int columnNum)
         {
             throw new NotImplementedException();
         }
@@ -30,7 +30,7 @@ namespace ExcelReadAndWrite.Openxml
             throw new NotImplementedException();
         }
 
-        public override StdExcelRangeBase GetRange()
+        public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
             throw new NotImplementedException();
         }
@@ -70,7 +70,7 @@ namespace ExcelReadAndWrite.Openxml
             throw new NotImplementedException();
         }
 
-        public override void SetCellFormular(string formular, int rowNum, int columnNum)
+        public override void SetCellFormula(string formular, int rowNum, int columnNum)
         {
             throw new NotImplementedException();
         }

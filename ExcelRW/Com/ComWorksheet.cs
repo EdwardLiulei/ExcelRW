@@ -48,7 +48,7 @@ namespace ExcelReadAndWrite.Com
         }
 
 
-        public override StdExcelRangeBase GetRange()
+        public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
             return null;
         }
@@ -59,41 +59,61 @@ namespace ExcelReadAndWrite.Com
             return new ComExcelCell(cell);
         }
 
-        public override string GetCellFormular(int rowNum, int columnNum)
+        public override string GetCellFormula(int rowNum, int columnNum)
         {
             return null;
         }
 
         public override StdExcelRowBase GetRow(int index)
         {
-            return null;
+            Range row = _worksheet.Rows[index];
+            return new ComExcelRow(row);
         }
 
         public override StdExcelColumnBase GetColumn(int index)
         {
-            return null;
+            Range column = _worksheet.Columns[index];
+            return new ComExcelColumn(column);
         }
 
         public override void InsertRow(int index)
-        { }
+        {
+            _worksheet.Rows.Insert(index);
+        }
 
         public override void InsertColumn(int index)
-        { }
+        {
+            _worksheet.Columns.Insert(index);
+        }
 
         public override void SetCellValue(string value, int rowNum, int columnNum)
-        { }
+        {
+            GetCell(rowNum, columnNum).SetValue(value);
+        }
 
-        public override void SetCellFormular(string formular, int rowNum, int columnNum)
-        { }
+        public override void SetCellFormula(string formula, int rowNum, int columnNum)
+        {
+            GetCell(rowNum, columnNum).SetFormular(formula);
+        }
 
         public override void SetRangeColor(StdExcelRangeBase range, System.Drawing.Color color)
-        { }
+        {
+            range.SetBackgroudColor(color);
+        }
 
         public override void SetCellColor(int rowNum, int columnNum, System.Drawing.Color color)
-        { }
+        {
+            GetCell(rowNum, columnNum).SetBackgroudColor(color);
+        }
 
-        public override void MergeCell(StdExcelRangeBase range) { }
+        public override void MergeCell(StdExcelRangeBase range) 
+        {
+            range.SetMerge();
+        }
 
-        public override void MergeCell(int startRow, int startCol, int endRow, int endCol) { }
+        public override void MergeCell(int startRow, int startCol, int endRow, int endCol) 
+        {
+            GetRange(startRow, startCol, endRow, endCol).SetMerge();
+        }
     }
 }
