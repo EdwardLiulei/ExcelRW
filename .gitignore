@@ -52,3 +52,5 @@ Test/bin/Debug/Test.exe
 Test/bin/Debug/Test.pdb
 Test/obj/x86/Debug/Test.csproj.FileListAbsolute.txt
 Test/obj/x86/Debug/Test.csproj.GenerateResource.Cache
+*.dll
+*.pdb

@@ -3,29 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
-using OfficeOpenXml;
 
-namespace ExcelReadAndWrite.Epplus
+namespace ExcelReadAndWrite.NPOI
 {
-    public class EpExcelRow:StdExcelRowBase
+    public class NpoiExcelRow:StdExcelRowBase
     {
-        #region Field
-        private ExcelRow _epRow;
-        private int _rowNum;
-        private ExcelWorksheet _workSheet;
-        #endregion
-
-        #region Properity
-
         public override bool Bold
         {
             get
             {
-                return _epRow.Style.Font.Bold;
+                throw new NotImplementedException();
             }
             set
             {
-                _epRow.Style.Font.Bold = value;
+                throw new NotImplementedException();
             }
         }
 
@@ -33,33 +24,18 @@ namespace ExcelReadAndWrite.Epplus
         {
             get
             {
-                return _epRow.Style.Font.Italic;
+                throw new NotImplementedException();
             }
             set
             {
-                _epRow.Style.Font.Italic = value;
+                throw new NotImplementedException();
             }
         }
-
-        #endregion
-
-        #region Constructor
-        public EpExcelRow(ExcelWorksheet sheet, int rowNum)
-        {
-            _workSheet = sheet;
-            _rowNum = rowNum;
-            _epRow = _workSheet.Row(rowNum);
- 
-        }
-
-        #endregion
 
         public override void SetFontStyle(System.Drawing.Font font)
         {
             throw new NotImplementedException();
         }
-
-       
 
         public override void SetBackgroudColor(System.Drawing.Color color)
         {

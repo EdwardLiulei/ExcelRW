@@ -15,16 +15,16 @@ namespace ExcelReadAndWrite.StdExcelModel
         private int _endRow;
         private int _endColumn;
         #endregion
+
+        #region Properity
+
+        public abstract bool Bold { set; get; }
+
+        public abstract bool Italic { set; get; }
+        #endregion
+
         #region Abstarct Functions
         public abstract void SetFontStyle(Font font);
-
-        public abstract void SetBold();
-
-        public abstract void SetItalic();
-
-        public abstract void UnBold();
-
-        public abstract void UnItalic();
 
         public abstract void SetBackgroudColor(Color color);
 

@@ -9,17 +9,11 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
     public interface IStdSheetCompo
     {
 
+        bool Bold{get;set;}
 
+        bool Italic { set; get; }
 
         void SetFontStyle(Font font);
-
-        void SetBold();
-
-        void SetItalic();
-
-        void UnBold();
-
-        void UnItalic();
 
         void SetBackgroudColor(Color color);
 

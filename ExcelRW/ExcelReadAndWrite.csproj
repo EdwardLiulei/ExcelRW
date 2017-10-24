@@ -81,6 +81,9 @@
     <Compile Include="Epplus\EpExcelRange.cs" />
     <Compile Include="Epplus\EpExcelRow.cs" />
     <Compile Include="NPOI\NpoiExcelCell.cs" />
+    <Compile Include="NPOI\NpoiExcelColumn.cs" />
+    <Compile Include="NPOI\NpoiExcelRange.cs" />
+    <Compile Include="NPOI\NpoiExcelRow.cs" />
     <Compile Include="Openxml\OpenxmlWorkbook.cs" />
     <Compile Include="Openxml\OpenxmlWorksheet.cs" />
     <Compile Include="StdExcelModel\BaseModel\IStdCell.cs" />

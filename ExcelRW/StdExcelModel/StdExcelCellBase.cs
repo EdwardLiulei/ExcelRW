@@ -14,6 +14,13 @@ namespace ExcelReadAndWrite.StdExcelModel
         private bool _isMerged;
         #endregion
 
+        #region Properity
+
+        public abstract bool Bold { set; get; }
+
+        public abstract bool Italic { set; get; }
+        #endregion
+
         #region Abstract Functions
         public abstract string GetValue();
 
@@ -23,13 +30,6 @@ namespace ExcelReadAndWrite.StdExcelModel
 
         public abstract void SetFontStyle(Font font);
 
-        public abstract void SetBold();
-
-        public abstract void SetItalic();
-
-        public abstract void UnBold();
-
-        public abstract void UnItalic();
 
         public abstract void SetBackgroudColor(Color color);
 

@@ -19,6 +19,36 @@ namespace ExcelReadAndWrite.NPOI
 
         #endregion
 
+        #region Properity
+        public override bool Bold
+        {
+            get
+            {
+                var workbook = _npoiCell.Sheet.Workbook;
+                return _npoiCell.CellStyle.GetFont(workbook).IsBold;
+            }
+            set
+            {
+                var workbook = _npoiCell.Sheet.Workbook;
+                _npoiCell.CellStyle.GetFont(workbook).IsBold = value;
+            }
+        }
+
+        public override bool Italic
+        {
+            get
+            {
+                var workbook = _npoiCell.Sheet.Workbook;
+                return _npoiCell.CellStyle.GetFont(workbook).IsItalic;
+            }
+            set
+            {
+                var workbook = _npoiCell.Sheet.Workbook;
+                _npoiCell.CellStyle.GetFont(workbook).IsItalic = value;
+            }
+        }
+        #endregion
+
         #region Constructor
         public NpoiExcelCell(ICell cell)
         {
@@ -87,33 +117,18 @@ namespace ExcelReadAndWrite.NPOI
 
         public override void SetFontStyle(System.Drawing.Font font)
         {
-            //_npoiCell.CellStyle.SetFont(font);
+            var workbook = _npoiCell.Sheet.Workbook;
+            IFont thisFont = _npoiCell.CellStyle.GetFont(workbook);
+            thisFont.FontName = font.Name;
+            thisFont.IsBold = font.Bold;
+            thisFont.IsItalic = font.Italic;
+            if (font.Underline)
+                thisFont.Underline = FontUnderlineType.Single;
+
+            _npoiCell.CellStyle.SetFont(thisFont);
 
         }
-
-        public override void SetBold()
-        {
-            IWorkbook parentWorkbook = _npoiCell.Sheet.Workbook;
-            _npoiCell.CellStyle.GetFont(parentWorkbook).IsBold = true;
-        }
-
-        public override void SetItalic()
-        {
-            IWorkbook parentWorkbook = _npoiCell.Sheet.Workbook;
-            _npoiCell.CellStyle.GetFont(parentWorkbook).IsItalic = true;
-        }
-
-        public override void UnBold()
-        {
-            IWorkbook parentWorkbook = _npoiCell.Sheet.Workbook;
-            _npoiCell.CellStyle.GetFont(parentWorkbook).IsBold = false;
-        }
-
-        public override void UnItalic()
-        {
-            IWorkbook parentWorkbook = _npoiCell.Sheet.Workbook;
-            _npoiCell.CellStyle.GetFont(parentWorkbook).IsItalic = false;
-        }
+   
 
         public override void SetBackgroudColor(Color color)
         {
@@ -179,5 +194,7 @@ namespace ExcelReadAndWrite.NPOI
                 //No way!
             }
         }
+
+       
     }
 }

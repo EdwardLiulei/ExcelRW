@@ -22,6 +22,26 @@ namespace ExcelReadAndWrite.Com
         }
 
         #endregion
+
+        #region Properity
+
+        public override bool Bold
+        {
+            set
+            { _comCell.Font.Bold = value; }
+            get 
+            { return _comCell.Font.Bold; }
+        }
+
+        public override bool Italic
+        {
+            set
+            { _comCell.Font.Italic = value; }
+            get
+            { return _comCell.Font.Italic; }
+        }
+
+        #endregion
         public override string GetValue()
         {
             object o = _comCell.Value;
@@ -48,26 +68,7 @@ namespace ExcelReadAndWrite.Com
             _comCell.Font.Underline = font.Underline;
         }
 
-        public override void SetBold() 
-        {
-            _comCell.Font.Bold = true;
-        }
-
-        public override void SetItalic() 
-        {
-            _comCell.Font.Italic = true;
-        }
-
-        public override void UnBold()
-        {
-            _comCell.Font.Bold = false;
-        }
-
-        public override void UnItalic()
-        {
-            _comCell.Font.Italic = false;
-        }
-
+       
         public override void SetBackgroudColor(Color color) 
         {
             

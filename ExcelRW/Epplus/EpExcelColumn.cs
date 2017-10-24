@@ -12,14 +12,46 @@ namespace ExcelReadAndWrite.Epplus
     {
         #region Field
         private ExcelColumn _epColumn;
+        private ExcelWorksheet _epWorkSheet;
+        private int _columnNum;
+
+        #endregion
+
+        #region Properity
+
+        public override bool Bold
+        {
+            get
+            {
+                return _epColumn.Style.Font.Bold;
+            }
+            set
+            {
+                _epColumn.Style.Font.Bold = value;
+            }
+        }
+
+        public override bool Italic
+        {
+            get
+            {
+                return _epColumn.Style.Font.Italic;
+            }
+            set
+            {
+                _epColumn.Style.Font.Italic = value;
+            }
+        }
 
         #endregion
 
         #region Constructor
 
-        public EpExcelColumn(ExcelColumn column)
+        public EpExcelColumn(ExcelWorksheet sheet,int columnNum)
         {
-            _epColumn = column;
+            _epWorkSheet = sheet;
+            _columnNum = columnNum;
+            _epColumn = sheet.Column(columnNum);
  
         }
         #endregion
@@ -33,26 +65,7 @@ namespace ExcelReadAndWrite.Epplus
             _epColumn.Style.Font.UnderLine = font.Underline;
         }
 
-        public override void SetBold()
-        {
-            _epColumn.Style.Font.Bold = true;
-        }
-
-        public override void SetItalic()
-        {
-            _epColumn.Style.Font.Italic = true;
-        }
-
-        public override void UnBold()
-        {
-            _epColumn.Style.Font.Bold = false;
-        }
-
-        public override void UnItalic()
-        {
-            _epColumn.Style.Font.Italic = false;
-        }
-
+        
         public override void SetBackgroudColor(System.Drawing.Color color)
         {
             _epColumn.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -71,7 +84,8 @@ namespace ExcelReadAndWrite.Epplus
 
         public override StdExcelCellBase GetCell(int rowNum)
         {
-            throw new NotImplementedException();
+            ExcelRange range = _epWorkSheet.Cells[rowNum, _columnNum];
+            return new EpExcelCell(range);
         }
     }
 }

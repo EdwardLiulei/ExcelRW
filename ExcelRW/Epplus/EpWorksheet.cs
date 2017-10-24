@@ -50,7 +50,7 @@ namespace ExcelReadAndWrite.Epplus
         public override ExcelReadAndWrite.StdExcelModel.StdExcelCellBase GetCell(int rowNum, int columnNum)
         {
             ExcelRange range = _worksheet.Cells[rowNum, columnNum];
-
+            
             return new EpExcelCell(range);
         }
 
@@ -64,15 +64,15 @@ namespace ExcelReadAndWrite.Epplus
 
         public override StdExcelRowBase GetRow(int index)
         {
-            var row= _worksheet.Row(index);
-            return new EpExcelRow(row);
+            //var row= _worksheet.Row(index);
+            return new EpExcelRow(_worksheet,index);
         }
 
         public override StdExcelColumnBase GetColumn(int index)
         {
-            var column = _worksheet.Column(index);
+           
 
-            return new EpExcelColumn(column);
+            return new EpExcelColumn(_worksheet,index);
         }
 
         public override void InsertRow(int index)

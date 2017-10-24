@@ -12,6 +12,25 @@ namespace ExcelReadAndWrite.Com
         #region Field
         private Range _comRow;
         #endregion
+        #region Properity
+
+        public override bool Bold
+        {
+            set
+            { _comRow.Font.Bold = value; }
+            get
+            { return _comRow.Font.Bold; }
+        }
+
+        public override bool Italic
+        {
+            set
+            { _comRow.Font.Italic = value; }
+            get
+            { return _comRow.Font.Italic; }
+        }
+
+        #endregion
 
         #region Constructor
         public ComExcelRow(Range range)
@@ -31,25 +50,6 @@ namespace ExcelReadAndWrite.Com
             _comRow.Font.Underline = font.Underline;
         }
 
-        public override void SetBold()
-        {
-            _comRow.Font.Bold = true;
-        }
-
-        public override void SetItalic()
-        {
-            _comRow.Font.Italic= true;
-        }
-
-        public override void UnBold()
-        {
-            _comRow.Font.Bold = false;
-        }
-
-        public override void UnItalic()
-        {
-            _comRow.Font.Italic = false;
-        }
 
         public override void SetBackgroudColor(System.Drawing.Color color)
         {

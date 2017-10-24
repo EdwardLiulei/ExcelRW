@@ -21,6 +21,24 @@ namespace ExcelReadAndWrite.Com
         }
 
         #endregion
+
+        public override bool Bold
+        {
+            set
+            { _comColumn.Font.Bold = value; }
+            get
+            { return _comColumn.Font.Bold; }
+        }
+
+        public override bool Italic
+        {
+            set
+            { _comColumn.Font.Italic = value; }
+            get
+            { return _comColumn.Font.Italic; }
+        }
+
+
         public override void SetFontStyle(System.Drawing.Font font)
         {
             _comColumn.Font.Name = font.Name;
@@ -28,26 +46,6 @@ namespace ExcelReadAndWrite.Com
             _comColumn.Font.Bold = font.Bold;
             _comColumn.Font.Italic = font.Italic;
             _comColumn.Font.Underline = font.Underline;
-        }
-
-        public override void SetBold()
-        {
-            _comColumn.Font.Bold = true;
-        }
-
-        public override void SetItalic()
-        {
-            _comColumn.Font.Italic = true;
-        }
-
-        public override void UnBold()
-        {
-            _comColumn.Font.Bold = false;
-        }
-
-        public override void UnItalic()
-        {
-            _comColumn.Font.Italic = false;
         }
 
         public override void SetBackgroudColor(System.Drawing.Color color)

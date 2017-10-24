@@ -14,6 +14,34 @@ namespace ExcelReadAndWrite.Epplus
         private ExcelRange _epCell;
         #endregion
 
+        #region Properity
+
+        public override bool Bold
+        {
+            get
+            {
+                return _epCell.Style.Font.Bold;
+            }
+            set
+            {
+                _epCell.Style.Font.Bold = value;
+            }
+        }
+
+        public override bool Italic
+        {
+            get
+            {
+                return _epCell.Style.Font.Italic;
+            }
+            set
+            {
+                _epCell.Style.Font.Italic = value;
+            }
+        }
+
+        #endregion
+
         #region Constructor
 
         public EpExcelCell(ExcelRange range)
@@ -48,26 +76,7 @@ namespace ExcelReadAndWrite.Epplus
             _epCell.Style.Font.Bold = font.Bold;
             _epCell.Style.Font.UnderLine = font.Underline;
         }
-
-        public override void SetBold()
-        {
-            _epCell.Style.Font.Bold = true;
-        }
-
-        public override void SetItalic()
-        {
-            _epCell.Style.Font.Italic = true;
-        }
-
-        public override void UnBold()
-        {
-            _epCell.Style.Font.Bold = false;
-        }
-
-        public override void UnItalic()
-        {
-            _epCell.Style.Font.Italic = false;
-        }
+ 
 
         public override void SetBackgroudColor(System.Drawing.Color color)
         {
