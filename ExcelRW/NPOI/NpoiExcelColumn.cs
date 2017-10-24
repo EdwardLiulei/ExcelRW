@@ -6,7 +6,7 @@ using ExcelReadAndWrite.StdExcelModel;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
-
+using NPOI.HSSF.Util;
 
 namespace ExcelReadAndWrite.NPOI
 {
@@ -26,11 +26,16 @@ namespace ExcelReadAndWrite.NPOI
         {
             get
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+                return _npoiWorksheet.GetColumnStyle(_columnNum).GetFont(workbook).IsBold;
             }
             set
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+                ICellStyle cellStyle = workbook.CreateCellStyle();
+                cellStyle.CloneStyleFrom(_npoiWorksheet.GetColumnStyle(_columnNum));
+                cellStyle.GetFont(workbook).IsBold = value;
+                _npoiWorksheet.SetDefaultColumnStyle(_columnNum, cellStyle);
             }
         }
 
@@ -38,11 +43,18 @@ namespace ExcelReadAndWrite.NPOI
         {
             get
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+               
+                return _npoiWorksheet.GetColumnStyle(_columnNum).GetFont(workbook).IsItalic;
+
             }
             set
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+                ICellStyle cellStyle = workbook.CreateCellStyle();
+                cellStyle.CloneStyleFrom(_npoiWorksheet.GetColumnStyle(_columnNum));
+                cellStyle.GetFont(workbook).IsItalic = value;
+                _npoiWorksheet.SetDefaultColumnStyle(_columnNum, cellStyle);
             }
         }
 
@@ -80,22 +92,76 @@ namespace ExcelReadAndWrite.NPOI
 
         public override void SetBackgroudColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            IWorkbook workbook = _npoiWorksheet.Workbook;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            cellStyle.CloneStyleFrom(_npoiWorksheet.GetColumnStyle(_columnNum));
+            if (workbook is HSSFWorkbook)
+            {
+                HSSFWorkbook hssfWorkbook = (HSSFWorkbook)workbook;
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+
+                cellStyle.FillPattern = FillPattern.SolidForeground;
+
+                cellStyle.FillForegroundColor = hssFColor.Indexed;
+
+            }
+            else
+            {
+                HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+
+                cellStyle.FillPattern = FillPattern.SolidForeground;
+
+                cellStyle.FillForegroundColor = hssFColor.Indexed;
+                //No way!
+            }
+            _npoiWorksheet.SetDefaultColumnStyle(_columnNum,cellStyle);
         }
 
         public override void SetFontColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            IWorkbook workbook = _npoiWorksheet.Workbook;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            cellStyle.CloneStyleFrom(_npoiWorksheet.GetColumnStyle(_columnNum));
+            if (workbook is HSSFWorkbook)
+            {
+                HSSFWorkbook hssfWorkbook = (HSSFWorkbook)workbook;
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+                IFont font = cellStyle.GetFont(workbook);
+                font.Color = hssFColor.Indexed;
+                cellStyle.SetFont(font);
+
+            }
+            else
+            {
+                
+                //No way!
+            }
+            _npoiWorksheet.SetDefaultColumnStyle(_columnNum, cellStyle);
+
         }
 
         public override void SetWidth(int width)
         {
-            throw new NotImplementedException();
+            _npoiWorksheet.SetColumnWidth(_columnNum,width);
         }
 
         public override StdExcelCellBase GetCell(int rowNum)
         {
-            throw new NotImplementedException();
+            ICell cell = _npoiWorksheet.GetRow(rowNum).GetCell(_columnNum);
+            return new NpoiExcelCell(cell);
         }
     }
 }

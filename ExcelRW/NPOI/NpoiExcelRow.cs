@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
+using NPOI.SS.UserModel;
+using NPOI.HSSF.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace ExcelReadAndWrite.NPOI
 {
     public class NpoiExcelRow:StdExcelRowBase
     {
+        #region Field
+        private IRow _row;
+        private int _rowNum;
+
+        #endregion
+
+        #region Porperity
+
         public override bool Bold
         {
             get
@@ -31,6 +42,16 @@ namespace ExcelReadAndWrite.NPOI
                 throw new NotImplementedException();
             }
         }
+        #endregion
+
+        #region Constructor
+        public NpoiExcelRow(ISheet sheet,int rowNum)
+        {
+            _row = sheet.GetRow(rowNum);
+            _rowNum = rowNum;
+        }
+
+        #endregion
 
         public override void SetFontStyle(System.Drawing.Font font)
         {
@@ -54,7 +75,8 @@ namespace ExcelReadAndWrite.NPOI
 
         public override StdExcelCellBase GetCell(int columnNum)
         {
-            throw new NotImplementedException();
+            ICell cell = _row.GetCell(columnNum);
+            return new NpoiExcelCell(cell);
         }
     }
 }
