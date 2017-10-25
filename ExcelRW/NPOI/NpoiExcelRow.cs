@@ -14,6 +14,7 @@ namespace ExcelReadAndWrite.NPOI
         #region Field
         private IRow _row;
         private int _rowNum;
+        private ISheet _npoiWorksheet;
 
         #endregion
 
@@ -49,13 +50,27 @@ namespace ExcelReadAndWrite.NPOI
         {
             _row = sheet.GetRow(rowNum);
             _rowNum = rowNum;
+            _npoiWorksheet = sheet;
         }
 
         #endregion
 
         public override void SetFontStyle(System.Drawing.Font font)
         {
-            throw new NotImplementedException();
+            var workbook = _npoiWorksheet.Workbook;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            cellStyle.CloneStyleFrom(_row.RowStyle);
+
+            IFont thisFont = cellStyle.GetFont(workbook);
+            thisFont.FontName = font.Name;
+            thisFont.IsBold = font.Bold;
+            thisFont.IsItalic = font.Italic;
+            if (font.Underline)
+                thisFont.Underline = FontUnderlineType.Single;
+
+            cellStyle.SetFont(thisFont);
+
+            _row.RowStyle = cellStyle;
         }
 
         public override void SetBackgroudColor(System.Drawing.Color color)
@@ -70,7 +85,7 @@ namespace ExcelReadAndWrite.NPOI
 
         public override void SetHeight(int height)
         {
-            throw new NotImplementedException();
+            _row.Height = (short)height;
         }
 
         public override StdExcelCellBase GetCell(int columnNum)

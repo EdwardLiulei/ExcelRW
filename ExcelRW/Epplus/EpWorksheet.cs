@@ -27,7 +27,7 @@ namespace ExcelReadAndWrite.Epplus
 
         public override DataTable GetTableContent()
         {
-            throw new NotImplementedException();
+            return new DataTable();
         }
 
 

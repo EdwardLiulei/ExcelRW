@@ -118,15 +118,18 @@ namespace ExcelReadAndWrite.NPOI
         public override void SetFontStyle(System.Drawing.Font font)
         {
             var workbook = _npoiCell.Sheet.Workbook;
-            IFont thisFont = _npoiCell.CellStyle.GetFont(workbook);
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            cellStyle.CloneStyleFrom(_npoiCell.CellStyle);
+            IFont thisFont = cellStyle.GetFont(workbook);
             thisFont.FontName = font.Name;
             thisFont.IsBold = font.Bold;
             thisFont.IsItalic = font.Italic;
             if (font.Underline)
                 thisFont.Underline = FontUnderlineType.Single;
 
-            _npoiCell.CellStyle.SetFont(thisFont);
+            cellStyle.SetFont(thisFont);
 
+            _npoiCell.CellStyle = cellStyle;
         }
    
 

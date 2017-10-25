@@ -5,24 +5,50 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace ExcelReadAndWrite.Openxml
 {
     public class OpenxmlWorksheet : StdExcelWorkSheetBase
     {
+        #region Field
+        private WorksheetPart _openxmlWorksheet;
+        #endregion
+
+        #region Constructor
+        public OpenxmlWorksheet(WorksheetPart worksheet)
+        {
+            _openxmlWorksheet = worksheet;
+        }
+        #endregion
+
         public override StdExcelCellBase GetCell(int rowNum, int columnNum)
         {
-            throw new NotImplementedException();
+            IEnumerable<Row> rows = _openxmlWorksheet.Worksheet.Descendants<Row>();
+            Row row = rows.ToList()[rowNum];
+            IEnumerable<Cell> cells = row.Descendants<Cell>();
+            Cell cell = cells.ToList()[columnNum];
+            return null;
         }
+        
 
         public override string GetCellFormula(int rowNum, int columnNum)
         {
-            throw new NotImplementedException();
+            IEnumerable<Row> rows = _openxmlWorksheet.Worksheet.Descendants<Row>();
+            Row row = rows.ToList()[rowNum];
+            IEnumerable<Cell> cells = row.Descendants<Cell>();
+            Cell cell = cells.ToList()[columnNum];
+            return cell.CellFormula.Text;
         }
 
-        public override string GetCellValue(int rowNumber, int columNumber)
+        public override string GetCellValue(int rowNum, int columnNum)
         {
-            throw new NotImplementedException();
+            IEnumerable<Row> rows = _openxmlWorksheet.Worksheet.Descendants<Row>();
+            Row row = rows.ToList()[rowNum];
+            IEnumerable<Cell> cells = row.Descendants<Cell>();
+            Cell cell = cells.ToList()[columnNum];
+            return cell.CellValue.Text;
         }
 
         public override StdExcelColumnBase GetColumn(int index)

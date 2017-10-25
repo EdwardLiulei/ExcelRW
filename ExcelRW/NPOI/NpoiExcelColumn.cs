@@ -76,17 +76,20 @@ namespace ExcelReadAndWrite.NPOI
             int rowNum = _npoiWorksheet.LastRowNum;
             for (int i = 0; i <= rowNum; i++)
             {
+                ICellStyle cellStyle = workbook.CreateCellStyle();
                 IRow row = _npoiWorksheet.GetRow(i);
                 ICell cell = row.GetCell(_columnNum);
 
-                IFont thisFont = cell.CellStyle.GetFont(workbook);
+                cellStyle.CloneStyleFrom(cell.CellStyle);
+                IFont thisFont = cellStyle.GetFont(workbook);
                 thisFont.FontName = font.Name;
                 thisFont.IsBold = font.Bold;
                 thisFont.IsItalic = font.Italic;
                 if (font.Underline)
                     thisFont.Underline = FontUnderlineType.Single;
 
-                cell.CellStyle.SetFont(thisFont);
+                cellStyle.SetFont(thisFont);
+                cell.CellStyle = cellStyle;
             }
         }
 

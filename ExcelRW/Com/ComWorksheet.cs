@@ -44,13 +44,14 @@ namespace ExcelReadAndWrite.Com
 
         public override string GetCellValue(int rowNumber, int columNumber)
         {
-            return _worksheet.Cells[rowNumber, columNumber];
+            Range rang= _worksheet.Cells[rowNumber, columNumber];
+            return rang.Value;
         }
 
 
         public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
-            return null;
+            return new ComExcelRange(_worksheet.Range[_worksheet.Cells[startRow,startCol],_worksheet.Cells[endRow,endCol]]);
         }
 
         public override StdExcelCellBase GetCell(int rowNum, int columnNum)
@@ -59,9 +60,11 @@ namespace ExcelReadAndWrite.Com
             return new ComExcelCell(cell);
         }
 
-        public override string GetCellFormula(int rowNum, int columnNum)
+        public override string GetCellFormula(int rowNumber, int columNumber)
         {
-            return null;
+            Range rang = _worksheet.Cells[rowNumber, columNumber];
+            return rang.Formula;
+            
         }
 
         public override StdExcelRowBase GetRow(int index)

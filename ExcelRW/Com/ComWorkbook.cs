@@ -42,10 +42,13 @@ namespace ExcelReadAndWrite.Com
 
         public override void Save(string fileName)
         {
+            _xApp.DisplayAlerts = false;
+            _xApp.AlertBeforeOverwriting = false;
+            _xApp.Visible = false;
             if (fileName == _fileName)
                 _workbook.Save();
             else
-                _workbook.SaveAs(fileName);
+                _workbook.SaveAs(fileName, Type.Missing, Type.Missing,Type.Missing,Type.Missing);
 
             //ReleaseReSource();
             //throw new NotImplementedException();

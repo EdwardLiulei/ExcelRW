@@ -144,7 +144,7 @@ namespace ExcelReadAndWrite.NPOI
 
         public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
-            return null;
+            return new NpoiExcelRange(_npoiWorsheet,startRow,startCol,endRow,endCol);
         }
 
         public override StdExcelCellBase GetCell(int rowNum, int columnNum)

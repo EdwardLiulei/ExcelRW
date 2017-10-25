@@ -24,7 +24,8 @@ namespace ExcelReadAndWrite.Openxml
             foreach (Sheet sheet in _xmlWorkbook.Workbook.Descendants<Sheet>())
             {
                 WorksheetPart worksheet = (WorksheetPart)_xmlWorkbook.GetPartById(sheet.Id);
-
+                StdExcelWorkSheetBase stdWorksheet = new OpenxmlWorksheet(worksheet);
+                _workSheets.Add(stdWorksheet);
             }
             
         }
