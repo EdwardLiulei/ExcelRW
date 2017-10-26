@@ -12,17 +12,17 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
         
         string GetSheetName();
 
-        IStdRange GetRange(int startRow, int startCol, int endRow, int endCol);
+        StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol);
 
-        IStdCell GetCell(int rowNum, int columnNum);
+        StdExcelCellBase GetCell(int rowNum, int columnNum);
 
         string GetCellValue(int rowNum, int columnNum);
 
         string GetCellFormular(int rowNum, int columnNum);
 
-        IStdRow GetRow(int index);
+        StdExcelRowBase GetRow(int index);
 
-        IStdColumn GetColumn(int index);
+        StdExcelColumnBase GetColumn(int index);
 
         void InsertRow(int index);
 
@@ -33,10 +33,10 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 
         void SetCellFormular(string formular, int rowNum, int columnNum);
 
-        void SetRangeColor(IStdRange range,Color color);
+        void SetRangeColor(StdExcelRangeBase range,Color color);
         void SetCellColor(int rowNum, int columnNum, Color color);
 
-        void MergeCell(IStdRange range);
+        void MergeCell(StdExcelRangeBase range);
         void MergeCell(int startRow, int startCol, int endRow, int endCol);
 
         DataTable GetTableContent();

@@ -5,10 +5,10 @@ using System.Text;
 
 namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
-    internal interface IStdColumn:IStdSheetCompo
+    public enum WorkBookType
     {
-        void SetWidth(int width);
-
-        StdExcelCellBase GetCell(int columnNum);
+        XLS,
+        XLSX,
+        Unknown
     }
 }

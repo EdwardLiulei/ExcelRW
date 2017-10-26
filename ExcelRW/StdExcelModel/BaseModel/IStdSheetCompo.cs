@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
-    public interface IStdSheetCompo
+    internal interface IStdSheetCompo
     {
 
         bool Bold{get;set;}

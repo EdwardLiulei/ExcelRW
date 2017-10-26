@@ -7,7 +7,7 @@ using System.Drawing.Text;
 
 namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
-    public interface IStdCell:IStdSheetCompo
+    internal interface IStdCell:IStdSheetCompo
     {
         string GetValue();
 

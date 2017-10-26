@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel.BaseModel;
+using System.IO;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {
@@ -10,6 +11,8 @@ namespace ExcelReadAndWrite.StdExcelModel
     {
         #region Filed
         protected List<StdExcelWorkSheetBase> _workSheets;
+
+        protected WorkBookType _type;
 
         #endregion
 
@@ -30,11 +33,13 @@ namespace ExcelReadAndWrite.StdExcelModel
         public abstract void Load(string fileName);
 
         public abstract void Save(string fileName);
-        #endregion
+        
 
         public abstract StdExcelWorkSheetBase GetSheet(string sheetName);
+        #endregion
 
-        
+        #region Public Functions
+
 
         public List<string> GetSheetList()
         {
@@ -75,9 +80,24 @@ namespace ExcelReadAndWrite.StdExcelModel
         {
             throw new NotImplementedException();
         }
-        
+
+        #endregion
+
+        #region Protected Functions
+
+        protected WorkBookType CheckWorkBookType(string fileName)
+        {
+            string extention = Path.GetExtension(fileName);
+            if (extention.Equals("xlsx", StringComparison.OrdinalIgnoreCase))
+                return WorkBookType.XLSX;
+            if (extention.Equals("xls", StringComparison.OrdinalIgnoreCase))
+                return WorkBookType.XLS;
+            else
+                return WorkBookType.Unknown;
+        }
+
+        #endregion
 
 
-        
     }
 }

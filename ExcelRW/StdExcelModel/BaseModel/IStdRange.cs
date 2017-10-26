@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ExcelReadAndWrite.StdExcelModel.BaseModel
 {
-    public interface IStdRange:IStdSheetCompo
+    internal interface IStdRange:IStdSheetCompo
     {
 
         void SetMerge();

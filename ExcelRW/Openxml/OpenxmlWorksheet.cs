@@ -91,7 +91,7 @@ namespace ExcelReadAndWrite.Openxml
             throw new NotImplementedException();
         }
 
-        public override void SetCellColor(int rowNum, int columnNum, Color color)
+        public override void SetCellColor(int rowNum, int columnNum, System.Drawing.Color color)
         {
             throw new NotImplementedException();
         }
@@ -106,9 +106,10 @@ namespace ExcelReadAndWrite.Openxml
             throw new NotImplementedException();
         }
 
-        public override void SetRangeColor(StdExcelRangeBase range, Color color)
+        public override void SetRangeColor(StdExcelRangeBase range, System.Drawing.Color color)
         {
             throw new NotImplementedException();
         }
+
     }
 }
