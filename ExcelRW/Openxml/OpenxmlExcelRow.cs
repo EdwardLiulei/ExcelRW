@@ -11,9 +11,7 @@ namespace ExcelReadAndWrite.Openxml
 {
     public class OpenxmlExcelRow : StdExcelRowBase
     {
-        public override bool Bold { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override bool Italic { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+      
         public override StdExcelCellBase GetCell(int columnNum)
         {
             throw new NotImplementedException();
@@ -37,6 +35,30 @@ namespace ExcelReadAndWrite.Openxml
         public override void SetHeight(int height)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool Bold
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override bool Italic
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

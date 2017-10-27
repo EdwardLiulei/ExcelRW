@@ -9,8 +9,6 @@ namespace ExcelReadAndWrite.Openxml
 {
     public class OpenxmlExcelRange : StdExcelRangeBase
     {
-        public override bool Bold { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override bool Italic { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override string[,] GetRangeData()
         {
@@ -40,6 +38,30 @@ namespace ExcelReadAndWrite.Openxml
         public override void UnMerge()
         {
             throw new NotImplementedException();
+        }
+
+        public override bool Bold
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override bool Italic
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

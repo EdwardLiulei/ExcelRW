@@ -38,7 +38,7 @@ namespace ExcelReadAndWrite.StdExcelModel
 
         public abstract string GetCellValue(int rowNumber,int columNumber);
 
-        public abstract DataTable GetTableContent();
+        public abstract DataTable GetTableContent(bool hasHeader = false);
 
         public abstract StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol);
 
@@ -65,6 +65,16 @@ namespace ExcelReadAndWrite.StdExcelModel
         public abstract void MergeCell(StdExcelRangeBase range);
 
         public abstract void MergeCell(int startRow, int startCol, int endRow, int endCol);
+
+        public List<string> GetSheetDataFromRow(int rowNum)
+        {
+            return null;
+        }
+
+        public List<string> GetSheetDataFromColumn(int column)
+        {
+            return null;
+        }
       
         #endregion
 

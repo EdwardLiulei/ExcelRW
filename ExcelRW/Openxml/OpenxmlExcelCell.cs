@@ -18,8 +18,7 @@ namespace ExcelReadAndWrite.Openxml
         #endregion
 
         #region Properity
-        public override bool Bold { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override bool Italic { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
         #endregion
 
@@ -57,6 +56,30 @@ namespace ExcelReadAndWrite.Openxml
         public override void SetValue(string value)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool Bold
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override bool Italic
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

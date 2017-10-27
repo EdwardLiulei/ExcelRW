@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Office.Interop.Excel;
 using ExcelReadAndWrite.StdExcelModel;
 using System.Data;
+using ExcelReadAndWrite.Util;
 
 
 namespace ExcelReadAndWrite.Com
@@ -30,15 +31,58 @@ namespace ExcelReadAndWrite.Com
         {
             return _worksheet;
         }
-  
-        public override System.Data.DataTable GetTableContent()
+
+        public override System.Data.DataTable GetTableContent(bool hasHeader = false)
         {
             System.Data.DataTable table = new System.Data.DataTable();
             int iRowCount = _worksheet.UsedRange.Rows.Count;
             int iColCount = _worksheet.UsedRange.Columns.Count;
+            object[,] a = new string[iRowCount,iColCount];
             
-            var a = _worksheet.Range[_worksheet.Cells[1,1],_worksheet.Cells[iRowCount,iColCount]].Value2;
+            a =  _worksheet.Range[_worksheet.Cells[1,1],_worksheet.Cells[iRowCount,iColCount]].Value2;
+           
+            if (hasHeader == true)
+            {
+                List<string> headers = new List<string>();
+                for (int i = 0; i < iColCount; i++)
+                {
+                    headers.Add(a[0,i].ToString());
+                }
+                if (headers.Count > headers.Distinct().Count())
+                    throw new Exception(string.Format("The sheet: {0} contains duplicate headers",_sheetName));
+                foreach (var header in headers)
+                {
+                    table.Columns.Add(header);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < iColCount; i++)
+                {
+                    string columnName = WorksheetAddress.GetColumnAddress(i + 1);
+                    table.Columns.Add(columnName);
+                }
+                DataRow row = table.NewRow();
+                for (int j = 1; j < iColCount; j++)
+                {
+                    row[j] = a[1, j];
+                }
+                table.Rows.Add(row);
+            }
 
+
+            for (int i = 2; i < iRowCount; i++)
+            {
+                DataRow row = table.NewRow();
+                for (int j = 1; j < iColCount; j++)
+                {
+                    if (a[i, j] == null)
+                        row[j] = "";
+                    else
+                        row[j] = a[i, j].ToString();
+                }
+                table.Rows.Add(row);
+            }
             return table;
         }
 

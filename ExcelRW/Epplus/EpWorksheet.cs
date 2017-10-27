@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
 using OfficeOpenXml;
+using ExcelReadAndWrite.Util;
 
 namespace ExcelReadAndWrite.Epplus
 {
@@ -25,9 +26,53 @@ namespace ExcelReadAndWrite.Epplus
             return _worksheet;
         }
 
-        public override DataTable GetTableContent()
+        public override DataTable GetTableContent(bool hasHeader = false)
         {
-            return new DataTable();
+            System.Data.DataTable table = new System.Data.DataTable();
+            int iRowCount = _worksheet.Dimension.End.Row;
+            int iColCount = _worksheet.Dimension.End.Column;
+
+            if (hasHeader == true)
+            {
+                List<string> headers = new List<string>();
+                for (int i = 1; i <= iColCount; i++)
+                {
+                    headers.Add(GetCellValue(1, i));
+                }
+                if (headers.Count > headers.Distinct().Count())
+                    throw new Exception(string.Format("The sheet: {0} contains duplicate headers", _sheetName));
+                foreach (var header in headers)
+                {
+                    table.Columns.Add(header);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < iColCount; i++)
+                {
+                    string columnName = WorksheetAddress.GetColumnAddress(i + 1);
+                    table.Columns.Add(columnName);
+                }
+                DataRow row = table.NewRow();
+                for (int j = 1; j <= iColCount; j++)
+                {
+                    row[j-1] = GetCellValue(1, j);
+                }
+                table.Rows.Add(row);
+            }
+
+
+            for (int i = 2; i <= iRowCount; i++)
+            {
+                DataRow row = table.NewRow();
+                for (int j = 1; j <= iColCount; j++)
+                {
+
+                    row[j-1] = GetCellValue(i, j);
+                }
+                table.Rows.Add(row);
+            }
+            return table;
         }
 
 

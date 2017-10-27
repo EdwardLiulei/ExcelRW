@@ -23,7 +23,7 @@ namespace ExcelReadAndWrite.Oledb
             throw new NotImplementedException();
         }
 
-        public override System.Data.DataTable GetTableContent()
+        public override System.Data.DataTable GetTableContent(bool hasHeader = false)
         {
             throw new NotImplementedException();
         }

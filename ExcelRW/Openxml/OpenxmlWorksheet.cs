@@ -66,7 +66,7 @@ namespace ExcelReadAndWrite.Openxml
             throw new NotImplementedException();
         }
 
-        public override DataTable GetTableContent()
+        public override DataTable GetTableContent(bool hasHeader = false)
         {
             throw new NotImplementedException();
         }
