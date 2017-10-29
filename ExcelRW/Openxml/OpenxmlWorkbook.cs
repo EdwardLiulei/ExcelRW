@@ -16,7 +16,7 @@ namespace ExcelReadAndWrite.Openxml
             throw new NotImplementedException();
         }
 
-        public override void Load(string fileName)
+        protected override void ReadWorkbook(string fileName)
         {
             var xmlDoc = SpreadsheetDocument.Open(fileName, true);
             _xmlWorkbook =  xmlDoc.WorkbookPart;
@@ -31,6 +31,11 @@ namespace ExcelReadAndWrite.Openxml
         }
 
         public override void Save(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override StdExcelWorkSheetBase InsertSheet(string sheetName)
         {
             throw new NotImplementedException();
         }

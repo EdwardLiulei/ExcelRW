@@ -21,6 +21,10 @@ namespace ExcelReadAndWrite.Openxml
         {
             _openxmlWorksheet = worksheet;
         }
+
+        public override int ColumnNum => throw new NotImplementedException();
+
+        public override int RowNum => throw new NotImplementedException();
         #endregion
 
         public override StdExcelCellBase GetCell(int rowNum, int columnNum)
@@ -62,6 +66,16 @@ namespace ExcelReadAndWrite.Openxml
         }
 
         public override StdExcelRowBase GetRow(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<string> GetSheetDataFromColumn(int columnNum)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<string> GetSheetDataFromRow(int rowNum)
         {
             throw new NotImplementedException();
         }

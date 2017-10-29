@@ -59,17 +59,56 @@ namespace ExcelReadAndWrite.NPOI
         #endregion
         public override void SetFontStyle(System.Drawing.Font font)
         {
-            throw new NotImplementedException();
+            for (int i = _rangeAddress.FirstRow; i <= _rangeAddress.LastRow; i++)
+            {
+                IRow row = _npoiWorksheet.GetRow(i);
+                if (row == null)
+                    row = _npoiWorksheet.CreateRow(i);
+                for (int j = _rangeAddress.FirstColumn; j <= _rangeAddress.LastColumn; j++)
+                {
+                    ICell cell = row.GetCell(j);
+                    if (cell == null)
+                        cell = row.CreateCell(j);
+                    NpoiExcelCell excelCell = new NpoiExcelCell(cell);
+                    excelCell.SetFontStyle(font);
+                }
+            }
         }
 
         public override void SetBackgroudColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            for (int i = _rangeAddress.FirstRow; i <= _rangeAddress.LastRow; i++)
+            {
+                IRow row = _npoiWorksheet.GetRow(i);
+                if (row == null)
+                    row = _npoiWorksheet.CreateRow(i);
+                for (int j = _rangeAddress.FirstColumn; j <= _rangeAddress.LastColumn; j++)
+                {
+                    ICell cell = row.GetCell(j);
+                    if (cell == null)
+                        cell = row.CreateCell(j);
+                    NpoiExcelCell excelCell = new NpoiExcelCell(cell);
+                    excelCell.SetBackgroudColor(color);
+                }
+            }
         }
 
         public override void SetFontColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            for (int i = _rangeAddress.FirstRow; i <= _rangeAddress.LastRow; i++)
+            {
+                IRow row = _npoiWorksheet.GetRow(i);
+                if (row == null)
+                    row = _npoiWorksheet.CreateRow(i);
+                for (int j = _rangeAddress.FirstColumn; j <= _rangeAddress.LastColumn; j++)
+                {
+                    ICell cell = row.GetCell(j);
+                    if (cell == null)
+                        cell = row.CreateCell(j);
+                    NpoiExcelCell excelCell = new NpoiExcelCell(cell);
+                    excelCell.SetFontColor(color);
+                }
+            }
         }
 
         public override void SetMerge()
@@ -91,7 +130,70 @@ namespace ExcelReadAndWrite.NPOI
 
         public override string[,] GetRangeData()
         {
-            throw new NotImplementedException();
+            int columnNum = _rangeAddress.LastColumn - _rangeAddress.FirstColumn + 1;
+            int rowNum = _rangeAddress.LastRow - _rangeAddress.FirstRow + 1;
+            string[,] values = new string[rowNum, columnNum];
+            for (int i = 0; i < rowNum; i++)
+                for (int j = 0; j < columnNum; j++)
+                {
+                    IRow row = _npoiWorksheet.GetRow(i+ _rangeAddress.FirstRow);
+                    if (row == null)
+                    {
+                        values[i, j] = "";
+                    }
+                    else
+                    {
+                        values[i, j] = GetValue(row.GetCell(j+ _rangeAddress.FirstColumn));
+                    }
+                }
+
+            return values;
+        }
+
+        private string GetValue(ICell cell)
+        {
+            if (cell == null)
+                return "";
+            object value = null;
+            try
+            {
+                if (cell.CellType != CellType.Blank)
+                {
+                    switch (cell.CellType)
+                    {
+                        case CellType.Numeric:
+                            // Date comes here
+                            if (DateUtil.IsCellDateFormatted(cell))
+                            {
+                                value = cell.DateCellValue;
+                            }
+                            else
+                            {
+                                // Numeric type
+                                value = cell.NumericCellValue;
+                            }
+                            break;
+                        case CellType.Boolean:
+                            // Boolean type
+                            value = cell.BooleanCellValue;
+                            break;
+                        case CellType.Formula:
+                            value = cell.CellFormula;
+                            break;
+                        default:
+                            // String type
+                            value = cell.StringCellValue;
+                            break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                value = "";
+            }
+
+            return value.ToString();
+
         }
     }
 }

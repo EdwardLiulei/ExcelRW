@@ -6,6 +6,7 @@ using ExcelReadAndWrite.StdExcelModel;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
+using NPOI.HSSF.Util;
 
 namespace ExcelReadAndWrite.NPOI
 {
@@ -24,11 +25,13 @@ namespace ExcelReadAndWrite.NPOI
         {
             get
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+                return _row.RowStyle.GetFont(workbook).IsBold;
             }
             set
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+                _row.RowStyle.GetFont(workbook).IsBold = value;
             }
         }
 
@@ -36,11 +39,13 @@ namespace ExcelReadAndWrite.NPOI
         {
             get
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+                return _row.RowStyle.GetFont(workbook).IsItalic;
             }
             set
             {
-                throw new NotImplementedException();
+                var workbook = _npoiWorksheet.Workbook;
+                _row.RowStyle.GetFont(workbook).IsItalic = value;
             }
         }
         #endregion
@@ -75,12 +80,65 @@ namespace ExcelReadAndWrite.NPOI
 
         public override void SetBackgroudColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            IWorkbook workbook = _npoiWorksheet.Workbook;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            cellStyle.CloneStyleFrom(_row.RowStyle);
+            if (workbook is HSSFWorkbook)
+            {
+                HSSFWorkbook hssfWorkbook = (HSSFWorkbook)workbook;
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+
+                cellStyle.FillPattern = FillPattern.SolidForeground;
+
+                cellStyle.FillForegroundColor = hssFColor.Indexed;
+
+            }
+            else
+            {
+                HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+
+                cellStyle.FillPattern = FillPattern.SolidForeground;
+
+                cellStyle.FillForegroundColor = hssFColor.Indexed;
+                //No way!
+            }
+            _row.RowStyle = cellStyle;
         }
 
         public override void SetFontColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            IWorkbook workbook = _npoiWorksheet.Workbook;
+            ICellStyle cellStyle = workbook.CreateCellStyle();
+            if (workbook is HSSFWorkbook)
+            {
+                HSSFWorkbook hssfWorkbook = (HSSFWorkbook)workbook;
+                HSSFPalette palette = hssfWorkbook.GetCustomPalette(); //调色板实例
+
+                //palette.SetColorAtIndex((short)8, color.R, color.G, color.B);
+
+                HSSFColor hssFColor = palette.FindSimilarColor(color.R, color.G, color.B);
+                cellStyle.CloneStyleFrom(_row.RowStyle);
+
+                IFont font = cellStyle.GetFont(workbook);
+                font.Color = hssFColor.Indexed;
+                cellStyle.SetFont(font);
+                _row.RowStyle = cellStyle;
+
+            }
+            else
+            {
+
+                //No way!
+            }
         }
 
         public override void SetHeight(int height)

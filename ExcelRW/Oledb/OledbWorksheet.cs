@@ -4,18 +4,31 @@ using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
 using DataTable = System.Data.DataTable;
+using System.Data.OleDb;
+using System.Data;
 
 namespace ExcelReadAndWrite.Oledb
 {
     public class OledbWorksheet:StdExcelWorkSheetBase
     {
+        #region Fied
         private string _connectStr;
         private DataTable _tableContent;
 
-        public OledbWorksheet(string sheetName,string connectStr)
+        #endregion
+
+
+        #region Properity
+        public override int ColumnNum => throw new NotImplementedException();
+
+        public override int RowNum => throw new NotImplementedException();
+
+        #endregion
+        public OledbWorksheet(DataTable table, string sheetName,string connectStr)
         {
             _sheetName =sheetName;
             _connectStr = connectStr;
+            _tableContent = table;
         }
 
         public override string GetCellValue(int rowNumber, int columNumber)
@@ -25,11 +38,9 @@ namespace ExcelReadAndWrite.Oledb
 
         public override System.Data.DataTable GetTableContent(bool hasHeader = false)
         {
-            throw new NotImplementedException();
+
+            return _tableContent;
         }
-
-
-
 
         public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
@@ -77,5 +88,15 @@ namespace ExcelReadAndWrite.Oledb
         public override void MergeCell(StdExcelRangeBase range) { }
 
         public override void MergeCell(int startRow, int startCol, int endRow, int endCol) { }
+
+        public override List<string> GetSheetDataFromRow(int rowNum)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<string> GetSheetDataFromColumn(int columnNum)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

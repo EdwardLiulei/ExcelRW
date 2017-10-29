@@ -7,13 +7,36 @@ using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
 using System.IO;
+using ExcelReadAndWrite.Util;
 
 namespace ExcelReadAndWrite.NPOI
 {
     public class NpoiWorkbook:StdExcelWorkbookBase
     {
+        #region Field
         private IWorkbook _npoiWorkbook;
-        public override void Load(string fileName)
+
+        #endregion
+
+        #region Constructor
+
+        public NpoiWorkbook(WorkBookType type) : base()
+        {
+            if (type == WorkBookType.XLS)
+                _npoiWorkbook = new HSSFWorkbook();
+            else
+                _npoiWorkbook = new XSSFWorkbook();
+        }
+
+        public NpoiWorkbook(string fileName) : base(fileName)
+        {
+
+        }
+
+        #endregion
+
+        #region Protected Funtions
+        protected override void ReadWorkbook(string fileName)
         {
             string extension = Path.GetExtension(fileName);
             FileStream fs = File.OpenRead(fileName);
@@ -39,6 +62,10 @@ namespace ExcelReadAndWrite.NPOI
             //throw new NotImplementedException();
         }
 
+        #endregion
+
+        #region public functions
+
         public override void Save(string fileName)
         {
             using (var wook = new FileStream(fileName, FileMode.Create, FileAccess.Write))
@@ -51,5 +78,15 @@ namespace ExcelReadAndWrite.NPOI
         {
             return _workSheets.Find(p => p.SheetName.Equals(sheetName, StringComparison.OrdinalIgnoreCase));
         }
+
+        public override StdExcelWorkSheetBase InsertSheet(string sheetName)
+        {
+            ISheet sheet = _npoiWorkbook.CreateSheet(sheetName);
+            NpoiWorksheet npoiSheet =  new NpoiWorksheet(sheet);
+            _workSheets.Add(npoiSheet);
+            return npoiSheet;
+        }
+
+        #endregion
     }
 }

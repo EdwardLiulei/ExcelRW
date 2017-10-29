@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel.BaseModel;
 using System.IO;
+using ExcelReadAndWrite.Util;
+using System.Data;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {
@@ -12,7 +14,7 @@ namespace ExcelReadAndWrite.StdExcelModel
         #region Filed
         protected List<StdExcelWorkSheetBase> _workSheets;
 
-        protected WorkBookType _type;
+        protected WorkBookType _WorkbookType;
 
         #endregion
 
@@ -26,16 +28,36 @@ namespace ExcelReadAndWrite.StdExcelModel
         {
             _workSheets = new List<StdExcelWorkSheetBase>();
         }
+
+        public StdExcelWorkbookBase(string fileName)
+        {
+            _WorkbookType = CheckWorkBookType(fileName);
+
+            _workSheets = new List<StdExcelWorkSheetBase>();
+
+            PrePare();
+
+            ReadWorkbook(fileName);
+        }
         #endregion
 
         #region Absrtract Fuctions
 
-        public abstract void Load(string fileName);
+        protected virtual void PrePare()
+        {
+        }
+
+        protected abstract void ReadWorkbook(string fileName);
 
         public abstract void Save(string fileName);
         
 
         public abstract StdExcelWorkSheetBase GetSheet(string sheetName);
+
+        public abstract StdExcelWorkSheetBase InsertSheet(string sheetName);
+
+
+        public abstract StdExcelWorkSheetBase InertSheet(DataTable table, string sheetName,bool withHeader);
         #endregion
 
         #region Public Functions
@@ -85,16 +107,18 @@ namespace ExcelReadAndWrite.StdExcelModel
 
         #region Protected Functions
 
-        protected WorkBookType CheckWorkBookType(string fileName)
+        protected  WorkBookType CheckWorkBookType(string fileName)
         {
             string extention = Path.GetExtension(fileName);
-            if (extention.Equals("xlsx", StringComparison.OrdinalIgnoreCase))
+            if (extention.Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
                 return WorkBookType.XLSX;
-            if (extention.Equals("xls", StringComparison.OrdinalIgnoreCase))
+            if (extention.Equals(".xls", StringComparison.OrdinalIgnoreCase))
                 return WorkBookType.XLS;
             else
-                return WorkBookType.Unknown;
+                throw new Exception("Unkown Excel file!");
         }
+
+
 
         #endregion
 

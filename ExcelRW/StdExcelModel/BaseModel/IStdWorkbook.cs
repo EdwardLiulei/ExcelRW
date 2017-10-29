@@ -8,7 +8,7 @@ namespace ExcelReadAndWrite.StdExcelModel.BaseModel
     public interface IStdWorkbook
     {
         List<StdExcelWorkSheetBase>WorkSheets { get; }
-        void Load(string fileName);
+       // void ReadWorkbook(string fileName);
         void Save(string fileName);
 
         List<string> GetSheetList();

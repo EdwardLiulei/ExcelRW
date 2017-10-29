@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ExcelReadAndWrite.StdExcelModel.BaseModel
+namespace ExcelReadAndWrite.Util
 {
     public enum WorkBookType
     {
         XLS,
-        XLSX,
-        Unknown
+        XLSX
+       
     }
 }

@@ -24,6 +24,15 @@ namespace ExcelReadAndWrite.StdExcelModel
             get { return _sheetName; }
         }
 
+        public abstract int ColumnNum
+        {
+            get;
+        }
+
+        public abstract int RowNum
+        {
+            get;
+        }
 
         #endregion
 
@@ -66,15 +75,10 @@ namespace ExcelReadAndWrite.StdExcelModel
 
         public abstract void MergeCell(int startRow, int startCol, int endRow, int endCol);
 
-        public List<string> GetSheetDataFromRow(int rowNum)
-        {
-            return null;
-        }
+        public abstract List<string> GetSheetDataFromRow(int rowNum);
 
-        public List<string> GetSheetDataFromColumn(int column)
-        {
-            return null;
-        }
+        public abstract List<string> GetSheetDataFromColumn(int columnNum);  
+
       
         #endregion
 

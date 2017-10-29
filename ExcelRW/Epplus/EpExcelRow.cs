@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace ExcelReadAndWrite.Epplus
 {
@@ -56,29 +57,35 @@ namespace ExcelReadAndWrite.Epplus
 
         public override void SetFontStyle(System.Drawing.Font font)
         {
-            throw new NotImplementedException();
+            _epRow.Style.Font.Name = font.Name;
+            _epRow.Style.Font.Size = font.Size;
+            _epRow.Style.Font.Italic = font.Italic;
+            _epRow.Style.Font.Bold = font.Bold;
+            _epRow.Style.Font.UnderLine = font.Underline;
         }
 
        
 
         public override void SetBackgroudColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            _epRow.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            _epRow.Style.Fill.BackgroundColor.SetColor(color);
         }
 
         public override void SetFontColor(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            _epRow.Style.Font.Color.SetColor(color);
         }
 
         public override void SetHeight(int height)
         {
-            throw new NotImplementedException();
+            _epRow.Height = height;
         }
 
         public override StdExcelCellBase GetCell(int columnNum)
         {
-            throw new NotImplementedException();
+            ExcelRange cell = _workSheet.Cells[_rowNum, columnNum];
+            return new EpExcelCell(cell);
         }
     }
 }

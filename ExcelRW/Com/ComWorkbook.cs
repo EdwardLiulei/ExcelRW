@@ -5,6 +5,9 @@ using System.Text;
 using ExcelReadAndWrite.StdExcelModel;
 using Microsoft.Office.Interop.Excel;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using ExcelReadAndWrite.StdExcelModel.BaseModel;
 
 namespace ExcelReadAndWrite.Com
 {
@@ -16,43 +19,23 @@ namespace ExcelReadAndWrite.Com
         private string _fileName;
         #endregion
 
-        public override StdExcelWorkSheetBase GetSheet(string sheetName)
-        {
-            StdExcelWorkSheetBase targetSheet =null;
-            foreach (Worksheet worksheet in _workbook.Worksheets)
-            {
-                if (worksheet.Name.Equals(sheetName, StringComparison.OrdinalIgnoreCase))
-                    targetSheet = new ComWorksheet(worksheet);
-            }
-            return targetSheet;
-        }
-
-        public override void Load(string fileName)
+        #region Constructor
+        public ComWorkbook():base()
         {
             _xApp = new Application();
-            _fileName = fileName;
-            _workbook = _xApp.Workbooks.Open(fileName);
-            foreach (Worksheet sheet in _workbook.Worksheets)
-            {
-                ComWorksheet comWorksheet = new ComWorksheet(sheet);
-                _workSheets.Add(comWorksheet);
-            }
-            //throw new NotImplementedException();
+            _workbook = _xApp.Workbooks.Add();
         }
 
-        public override void Save(string fileName)
+        public ComWorkbook(string fileName):base(fileName)
         {
-            _xApp.DisplayAlerts = false;
-            _xApp.AlertBeforeOverwriting = false;
-            _xApp.Visible = false;
-            if (fileName == _fileName)
-                _workbook.Save();
-            else
-                _workbook.SaveAs(fileName, Type.Missing, Type.Missing,Type.Missing,Type.Missing);
+            
 
-            //ReleaseReSource();
-            //throw new NotImplementedException();
         }
+
+
+        #endregion
+
+        #region Dispose
 
         ~ComWorkbook()
         {
@@ -72,8 +55,80 @@ namespace ExcelReadAndWrite.Com
 
             _xApp = null;
             GC.Collect();
+
+            if (_xApp == null)
+                return;
+            IntPtr t = new IntPtr(_xApp.Hwnd);
+            int k = 0;
+            GetWindowThreadProcessId(t, out k);
+            System.Diagnostics.Process p = System.Diagnostics.Process.GetProcessById(k);
+            p.Kill();
+
         }
 
-       
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        private static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
+
+        #endregion
+
+        #region Protected Functions
+        protected override void PrePare()
+        {
+            _xApp = new Application();
+        }
+
+        protected override void ReadWorkbook(string fileName)
+        {
+
+            _fileName = fileName;
+            _workbook = _xApp.Workbooks.Open(fileName);
+            foreach (Worksheet sheet in _workbook.Worksheets)
+            {
+                ComWorksheet comWorksheet = new ComWorksheet(sheet);
+                _workSheets.Add(comWorksheet);
+            }
+            //throw new NotImplementedException();
+        }
+        public override StdExcelWorkSheetBase GetSheet(string sheetName)
+        {
+            StdExcelWorkSheetBase targetSheet =null;
+            foreach (Worksheet worksheet in _workbook.Worksheets)
+            {
+                if (worksheet.Name.Equals(sheetName, StringComparison.OrdinalIgnoreCase))
+                    targetSheet = new ComWorksheet(worksheet);
+            }
+            return targetSheet;
+        }
+
+        #endregion
+
+        #region Public Functions
+        public override void Save(string fileName)
+        {
+            _xApp.DisplayAlerts = false;
+            _xApp.AlertBeforeOverwriting = false;
+            _xApp.Visible = false;
+            if (fileName == _fileName)
+                _workbook.Save();
+            else
+                _workbook.SaveAs(fileName, Type.Missing, Type.Missing,Type.Missing,Type.Missing);
+
+            //ReleaseReSource();
+            //throw new NotImplementedException();
+        }
+
+        public override StdExcelWorkSheetBase InsertSheet(string sheetName)
+        {
+            Worksheet sheet = _workbook.Sheets.Add();
+            sheet.Name = sheetName;
+            StdExcelWorkSheetBase worksheet =  new ComWorksheet(sheet);
+            _workSheets.Add(worksheet);
+            return worksheet;
+        }
+
+        #endregion
+
+
     }
 }

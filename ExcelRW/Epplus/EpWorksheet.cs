@@ -11,26 +11,59 @@ namespace ExcelReadAndWrite.Epplus
 {
     public class EpWorksheet:StdExcelWorkSheetBase
     {
-        private ExcelWorksheet _worksheet;
+        #region Field
+        private ExcelWorksheet _epWorksheet;
+
+        #endregion
+
+        #region Properity
+
+        public override int ColumnNum
+        {
+            
+            get
+            {
+                if (_epWorksheet.Dimension == null)
+                    return 1;
+                return _epWorksheet.Dimension.End.Column;
+            }
+        }
+
+        public override int RowNum
+        {
+
+            get
+            {
+                if (_epWorksheet.Dimension == null)
+                    return 1;
+                return _epWorksheet.Dimension.End.Row;
+            }
+        }
+
+        #endregion
+
+        #region Constructor
 
         public EpWorksheet(ExcelWorksheet worksheet)
         {
-            _worksheet = worksheet;
+            _epWorksheet = worksheet;
             _sheetName = worksheet.Name;
         }
 
-       
+        #endregion
+
+        #region Public Functions
 
         public ExcelWorksheet GetEpWorksheet()
         {
-            return _worksheet;
+            return _epWorksheet;
         }
 
         public override DataTable GetTableContent(bool hasHeader = false)
         {
             System.Data.DataTable table = new System.Data.DataTable();
-            int iRowCount = _worksheet.Dimension.End.Row;
-            int iColCount = _worksheet.Dimension.End.Column;
+            int iRowCount = _epWorksheet.Dimension.End.Row;
+            int iColCount = _epWorksheet.Dimension.End.Column;
 
             if (hasHeader == true)
             {
@@ -78,72 +111,118 @@ namespace ExcelReadAndWrite.Epplus
 
         public override string GetCellValue(int rowNumber, int columNumber)
         {
-            if (_worksheet.Cells[rowNumber, columNumber].Value == null)
+            if (_epWorksheet.Cells[rowNumber, columNumber].Value == null)
                 return "";
             else
-                return _worksheet.Cells[rowNumber, columNumber].Value.ToString();
+                return _epWorksheet.Cells[rowNumber, columNumber].Value.ToString();
         }
 
 
         public override ExcelReadAndWrite.StdExcelModel.StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
-            ExcelRange range = _worksheet.SelectedRange[startRow, startCol, endRow, endCol];
+            ExcelRange range = _epWorksheet.SelectedRange[startRow, startCol, endRow, endCol];
 
             return new EpExcelRange(range);
         }
 
         public override ExcelReadAndWrite.StdExcelModel.StdExcelCellBase GetCell(int rowNum, int columnNum)
         {
-            ExcelRange range = _worksheet.Cells[rowNum, columnNum];
+            ExcelRange range = _epWorksheet.Cells[rowNum, columnNum];
             
             return new EpExcelCell(range);
         }
 
         public override string GetCellFormula(int rowNum, int columnNum)
         {
-            if (_worksheet.Cells[rowNum, columnNum].Value == null)
+            if (_epWorksheet.Cells[rowNum, columnNum].Value == null)
                 return "";
             else
-                return _worksheet.Cells[rowNum, columnNum].Formula;
+                return _epWorksheet.Cells[rowNum, columnNum].Formula;
         }
 
         public override StdExcelRowBase GetRow(int index)
         {
-            //var row= _worksheet.Row(index);
-            return new EpExcelRow(_worksheet,index);
+            //var row= _comWorksheet.Row(index);
+            return new EpExcelRow(_epWorksheet,index);
         }
 
         public override StdExcelColumnBase GetColumn(int index)
         {
            
 
-            return new EpExcelColumn(_worksheet,index);
+            return new EpExcelColumn(_epWorksheet,index);
         }
 
         public override void InsertRow(int index)
         {
-            _worksheet.InsertRow(index,index);
+            _epWorksheet.InsertRow(index,index);
         }
 
         public override void InsertColumn(int index)
         {
-            _worksheet.InsertColumn(index, index);
+            _epWorksheet.InsertColumn(index, index);
         }
 
         public override void SetCellValue(string value, int rowNum, int columnNum)
-        { }
+        {
+            var cell = GetCell(rowNum, columnNum);
+            cell.SetValue(value);
+        }
 
         public override void SetCellFormula(string formular, int rowNum, int columnNum)
-        { }
+        {
+            var cell = GetCell(rowNum, columnNum);
+            cell.SetFormular(formular);
+        }
 
         public override void SetRangeColor(ExcelReadAndWrite.StdExcelModel.StdExcelRangeBase range, System.Drawing.Color color)
-        { }
+        {
+            range.SetBackgroudColor(color);
+        }
 
         public override void SetCellColor(int rowNum, int columnNum, System.Drawing.Color color)
-        { }
+        {
+            var cell = GetCell(rowNum, columnNum);
+            cell.SetBackgroudColor(color);
+        }
 
-        public override void MergeCell(ExcelReadAndWrite.StdExcelModel.StdExcelRangeBase range) { }
+        public override void MergeCell(ExcelReadAndWrite.StdExcelModel.StdExcelRangeBase range)
+        {
+            range.SetMerge();
+        }
 
-        public override void MergeCell(int startRow, int startCol, int endRow, int endCol) { }
+        public override void MergeCell(int startRow, int startCol, int endRow, int endCol)
+        {
+            StdExcelRangeBase range = GetRange(startRow, startCol, endRow, endCol);
+            range.SetMerge();
+        }
+
+        public override List<string> GetSheetDataFromRow(int rowNum)
+        {
+            List<string> rowData = new List<string>();
+
+            int columnNum = _epWorksheet.Dimension.End.Column;
+            for (int i = 1; i <= columnNum; i++)
+            {
+                rowData.Add(GetCellValue(rowNum, columnNum));
+            }
+
+            return rowData;
+        }
+
+        public override List<string> GetSheetDataFromColumn(int columnNum)
+        {
+            List<string> columnData = new List<string>();
+
+            int rowNum = _epWorksheet.Dimension.End.Row;
+            for (int i = 1; i <= columnNum; i++)
+            {
+                columnData.Add(GetCellValue(rowNum, columnNum));
+            }
+
+            return columnData;
+        }
+
+        #endregion
     }
 }

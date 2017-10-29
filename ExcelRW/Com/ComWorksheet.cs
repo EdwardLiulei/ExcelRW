@@ -13,33 +13,47 @@ namespace ExcelReadAndWrite.Com
     public class ComWorksheet:StdExcelWorkSheetBase
     {
         #region Field
-        private Worksheet _worksheet;
+        private Worksheet _comWorksheet;
+
+        #endregion
+
+        #region Properity
+        public override int ColumnNum
+        {
+            get { return _comWorksheet.UsedRange.Columns.Count; }
+        }
+
+        public override int RowNum
+        {
+            get { return _comWorksheet.UsedRange.Rows.Count; }
+        }
 
         #endregion
 
         #region Constructor
         public ComWorksheet(Worksheet worksheet)
         {
-            _worksheet = worksheet;
+            _comWorksheet = worksheet;
 
             _sheetName = worksheet.Name;
         }
 
         #endregion
 
+        #region Public Functions
         public Worksheet GetComWorksheet()
         {
-            return _worksheet;
+            return _comWorksheet;
         }
 
         public override System.Data.DataTable GetTableContent(bool hasHeader = false)
         {
             System.Data.DataTable table = new System.Data.DataTable();
-            int iRowCount = _worksheet.UsedRange.Rows.Count;
-            int iColCount = _worksheet.UsedRange.Columns.Count;
+            int iRowCount = _comWorksheet.UsedRange.Rows.Count;
+            int iColCount = _comWorksheet.UsedRange.Columns.Count;
             object[,] a = new string[iRowCount,iColCount];
             
-            a =  _worksheet.Range[_worksheet.Cells[1,1],_worksheet.Cells[iRowCount,iColCount]].Value2;
+            a =  _comWorksheet.Range[_comWorksheet.Cells[1,1],_comWorksheet.Cells[iRowCount,iColCount]].Value2;
            
             if (hasHeader == true)
             {
@@ -88,49 +102,48 @@ namespace ExcelReadAndWrite.Com
 
         public override string GetCellValue(int rowNumber, int columNumber)
         {
-            Range rang= _worksheet.Cells[rowNumber, columNumber];
+            Range rang= _comWorksheet.Cells[rowNumber, columNumber];
             return rang.Value;
         }
 
-
         public override StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol)
         {
-            return new ComExcelRange(_worksheet.Range[_worksheet.Cells[startRow,startCol],_worksheet.Cells[endRow,endCol]]);
+            return new ComExcelRange(_comWorksheet.Range[_comWorksheet.Cells[startRow,startCol],_comWorksheet.Cells[endRow,endCol]]);
         }
 
         public override StdExcelCellBase GetCell(int rowNum, int columnNum)
         {
-            Range cell = _worksheet.Cells[rowNum, columnNum];
+            Range cell = _comWorksheet.Cells[rowNum, columnNum];
             return new ComExcelCell(cell);
         }
 
         public override string GetCellFormula(int rowNumber, int columNumber)
         {
-            Range rang = _worksheet.Cells[rowNumber, columNumber];
+            Range rang = _comWorksheet.Cells[rowNumber, columNumber];
             return rang.Formula;
             
         }
 
         public override StdExcelRowBase GetRow(int index)
         {
-            Range row = _worksheet.Rows[index];
+            Range row = _comWorksheet.Rows[index];
             return new ComExcelRow(row);
         }
 
         public override StdExcelColumnBase GetColumn(int index)
         {
-            Range column = _worksheet.Columns[index];
+            Range column = _comWorksheet.Columns[index];
             return new ComExcelColumn(column);
         }
 
         public override void InsertRow(int index)
         {
-            _worksheet.Rows.Insert(index);
+            _comWorksheet.Rows.Insert(index);
         }
 
         public override void InsertColumn(int index)
         {
-            _worksheet.Columns.Insert(index);
+            _comWorksheet.Columns.Insert(index);
         }
 
         public override void SetCellValue(string value, int rowNum, int columnNum)
@@ -162,5 +175,35 @@ namespace ExcelReadAndWrite.Com
         {
             GetRange(startRow, startCol, endRow, endCol).SetMerge();
         }
+
+        public override List<string> GetSheetDataFromRow(int rowNum)
+        {
+            List<string> rowData = new List<string>();
+            int columnNum = _comWorksheet.Columns.Count;
+            string[,] dataArray = new string[1, columnNum];
+            dataArray = _comWorksheet.Range[_comWorksheet.Cells[rowNum,1],_comWorksheet.Cells[rowNum,columnNum]].Value2;
+            for (int i = 0; i < columnNum; i++)
+            {
+                rowData.Add(dataArray[1, i]);
+            }
+
+            return rowData;
+        }
+
+        public override List<string> GetSheetDataFromColumn(int columnNum)
+        {
+            List<string> columnData = new List<string>();
+            int rowNum = _comWorksheet.Rows.Count;
+            string[,] dataArray = new string[rowNum, 1];
+            dataArray = _comWorksheet.Range[_comWorksheet.Cells[rowNum, 1], _comWorksheet.Cells[rowNum, columnNum]].Value2;
+            for (int i = 0; i < columnNum; i++)
+            {
+                columnData.Add(dataArray[i, 1]);
+            }
+
+            return columnData;
+        }
+
+        #endregion
     }
 }
