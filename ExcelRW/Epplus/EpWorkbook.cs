@@ -77,5 +77,10 @@ namespace ExcelReadAndWrite.Epplus
         }
 
         #endregion
+
+        public override StdExcelWorkSheetBase InsertSheet(System.Data.DataTable table, string sheetName, bool withHeader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

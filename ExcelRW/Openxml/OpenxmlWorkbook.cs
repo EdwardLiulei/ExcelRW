@@ -39,5 +39,10 @@ namespace ExcelReadAndWrite.Openxml
         {
             throw new NotImplementedException();
         }
+
+        public override StdExcelWorkSheetBase InsertSheet(System.Data.DataTable table, string sheetName, bool withHeader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

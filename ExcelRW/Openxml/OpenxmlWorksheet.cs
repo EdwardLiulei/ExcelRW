@@ -22,9 +22,9 @@ namespace ExcelReadAndWrite.Openxml
             _openxmlWorksheet = worksheet;
         }
 
-        public override int ColumnNum => throw new NotImplementedException();
+        public override int ColumnNum {get{ throw new NotImplementedException();}}
 
-        public override int RowNum => throw new NotImplementedException();
+        public override int RowNum { get { throw new NotImplementedException(); } }
         #endregion
 
         public override StdExcelCellBase GetCell(int rowNum, int columnNum)

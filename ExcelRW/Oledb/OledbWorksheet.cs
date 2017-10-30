@@ -19,9 +19,9 @@ namespace ExcelReadAndWrite.Oledb
 
 
         #region Properity
-        public override int ColumnNum => throw new NotImplementedException();
+        public override int ColumnNum{ get{throw new NotImplementedException();}}
 
-        public override int RowNum => throw new NotImplementedException();
+        public override int RowNum { get { throw new NotImplementedException(); } }
 
         #endregion
         public OledbWorksheet(DataTable table, string sheetName,string connectStr)

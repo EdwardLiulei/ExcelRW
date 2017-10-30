@@ -57,7 +57,7 @@ namespace ExcelReadAndWrite.StdExcelModel
         public abstract StdExcelWorkSheetBase InsertSheet(string sheetName);
 
 
-        public abstract StdExcelWorkSheetBase InertSheet(DataTable table, string sheetName,bool withHeader);
+        public abstract StdExcelWorkSheetBase InsertSheet(DataTable table, string sheetName,bool withHeader);
         #endregion
 
         #region Public Functions

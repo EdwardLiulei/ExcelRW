@@ -156,5 +156,10 @@ namespace ExcelReadAndWrite.Oledb
         {
             throw new NotImplementedException();
         }
+
+        public override StdExcelWorkSheetBase InsertSheet(DataTable table, string sheetName, bool withHeader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
