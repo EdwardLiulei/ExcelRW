@@ -5,9 +5,9 @@ using System.Text;
 using System.Drawing;
 using System.Data;
 
-namespace ExcelReadAndWrite.StdExcelModel.BaseModel
+namespace ExcelReadAndWrite.StdExcelModel.DataModel
 {
-    public interface IStdWorksheet
+    public interface IDataWorksheet
     {
         
         string GetSheetName();

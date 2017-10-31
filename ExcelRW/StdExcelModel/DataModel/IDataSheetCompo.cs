@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace ExcelReadAndWrite.StdExcelModel.BaseModel
+namespace ExcelReadAndWrite.StdExcelModel.DataModel
 {
-    internal interface IStdSheetCompo
+    internal interface IDataSheetCompo
     {
 
         bool Bold{get;set;}

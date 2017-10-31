@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-using ExcelReadAndWrite.StdExcelModel.BaseModel;
+using ExcelReadAndWrite.StdExcelModel.DataModel;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ExcelReadAndWrite.StdExcelModel.BaseModel
+namespace ExcelReadAndWrite.StdExcelModel.DataModel
 {
-    public interface IStdWorkbook
+    public interface IDataWorkbook
     {
         List<StdExcelWorkSheetBase>WorkSheets { get; }
        // void ReadWorkbook(string fileName);

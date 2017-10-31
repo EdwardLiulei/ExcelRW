@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ExcelReadAndWrite.StdExcelModel.BaseModel
+namespace ExcelReadAndWrite.StdExcelModel.DataModel
 {
-    internal interface IStdColumn:IStdSheetCompo
+    internal interface IDataColumn:IDataSheetCompo
     {
         void SetWidth(int width);
 

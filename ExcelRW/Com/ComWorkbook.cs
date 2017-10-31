@@ -7,7 +7,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using ExcelReadAndWrite.StdExcelModel.BaseModel;
+using ExcelReadAndWrite.StdExcelModel.DataModel;
 
 namespace ExcelReadAndWrite.Com
 {

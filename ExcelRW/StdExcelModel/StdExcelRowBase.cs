@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExcelReadAndWrite.StdExcelModel.BaseModel;
+using ExcelReadAndWrite.StdExcelModel.DataModel;
 using System.Drawing;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {
-    public abstract class StdExcelRowBase:IStdRow
+    public abstract class StdExcelRowBase
     {
         #region Field
 

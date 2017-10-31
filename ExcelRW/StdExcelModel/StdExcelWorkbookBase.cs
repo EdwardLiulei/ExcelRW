@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExcelReadAndWrite.StdExcelModel.BaseModel;
+using ExcelReadAndWrite.StdExcelModel.DataModel;
 using System.IO;
 using ExcelReadAndWrite.Util;
 using System.Data;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {
-    public abstract class StdExcelWorkbookBase:IStdWorkbook
+    public abstract class StdExcelWorkbookBase
     {
         #region Filed
         protected List<StdExcelWorkSheetBase> _workSheets;

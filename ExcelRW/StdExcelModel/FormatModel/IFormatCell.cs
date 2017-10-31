@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Drawing;
-using System.Drawing.Text;
 
-namespace ExcelReadAndWrite.StdExcelModel.BaseModel
+namespace ExcelReadAndWrite.StdExcelModel.FormatModel
 {
-    internal interface IStdCell:IStdSheetCompo
+    public interface IFormatCell
     {
-        string GetValue();
-
         bool IsMerged();
 
         void SetValue(string value);
