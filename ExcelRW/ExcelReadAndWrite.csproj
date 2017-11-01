@@ -42,6 +42,9 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
@@ -87,13 +90,13 @@
     <Compile Include="Openxml\OpenxmlExcelRow.cs" />
     <Compile Include="Openxml\OpenxmlWorkbook.cs" />
     <Compile Include="Openxml\OpenxmlWorksheet.cs" />
-    <Compile Include="StdExcelModel\BaseModel\IStdCell.cs" />
-    <Compile Include="StdExcelModel\BaseModel\IStdColumn.cs" />
-    <Compile Include="StdExcelModel\BaseModel\IStdRange.cs" />
-    <Compile Include="StdExcelModel\BaseModel\IStdRow.cs" />
-    <Compile Include="StdExcelModel\BaseModel\IStdSheetCompo.cs" />
-    <Compile Include="StdExcelModel\BaseModel\IStdWorkbook.cs" />
-    <Compile Include="StdExcelModel\BaseModel\IStdWorksheet.cs" />
+    <Compile Include="StdExcelModel\DataModel\IDataCell.cs" />
+    <Compile Include="StdExcelModel\DataModel\IDataColumn.cs" />
+    <Compile Include="StdExcelModel\DataModel\IDataRange.cs" />
+    <Compile Include="StdExcelModel\DataModel\IDataRow.cs" />
+    <Compile Include="StdExcelModel\DataModel\IDataSheetCompo.cs" />
+    <Compile Include="StdExcelModel\DataModel\IDataWorkbook.cs" />
+    <Compile Include="StdExcelModel\DataModel\IDataWorksheet.cs" />
     <Compile Include="Com\ComWorkbook.cs" />
     <Compile Include="Com\ComWorksheet.cs" />
     <Compile Include="Epplus\EpWorkbook.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Oledb\OledbWorkbook.cs" />
     <Compile Include="Oledb\OledbWorksheet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StdExcelModel\FormatModel\IFormatCell.cs" />
     <Compile Include="Util\WorkBookType.cs" />
     <Compile Include="StdExcelModel\StdExcelCellBase.cs" />
     <Compile Include="StdExcelModel\StdExcelColumnBase.cs" />
@@ -133,15 +137,6 @@
       <Guid>{4AC9E1DA-5BAD-4AC7-86E3-24F4CDCECA28}</Guid>
       <VersionMajor>12</VersionMajor>
       <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>9</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
