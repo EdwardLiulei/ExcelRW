@@ -5,12 +5,7 @@ using System.Text;
 
 namespace ExcelReadAndWrite.StdExcelModel.FormatModel
 {
-    public interface IFormatCell
+    public interface IRowFormat
     {
-        bool IsMerged();
-
-        void SetValue(string value);
-
-        void SetFormular(string formular);
     }
 }

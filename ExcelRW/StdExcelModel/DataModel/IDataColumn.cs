@@ -9,6 +9,6 @@ namespace ExcelReadAndWrite.StdExcelModel.DataModel
     {
         void SetWidth(int width);
 
-        StdExcelCellBase GetCell(int columnNum);
+        IDataCell GetCell(int columnNum);
     }
 }

@@ -9,12 +9,14 @@ using System.Data;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {
-    public abstract class StdExcelWorkbookBase
+    public abstract class StdExcelWorkbookBase:IDisposable
     {
         #region Filed
         protected List<StdExcelWorkSheetBase> _workSheets;
 
         protected WorkBookType _WorkbookType;
+
+        protected bool disposed = false;
 
         #endregion
 
@@ -106,6 +108,18 @@ namespace ExcelReadAndWrite.StdExcelModel
         #endregion
 
         #region Protected Functions
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+            //No Action
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
 
         protected  WorkBookType CheckWorkBookType(string fileName)
         {

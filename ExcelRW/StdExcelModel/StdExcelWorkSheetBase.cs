@@ -7,7 +7,7 @@ using ExcelReadAndWrite.StdExcelModel.DataModel;
 
 namespace ExcelReadAndWrite.StdExcelModel
 {
-    public abstract class StdExcelWorkSheetBase
+    public abstract class StdExcelWorkSheetBase 
     {
         #region Field
 

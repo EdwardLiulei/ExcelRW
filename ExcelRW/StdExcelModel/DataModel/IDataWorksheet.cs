@@ -7,14 +7,14 @@ using System.Data;
 
 namespace ExcelReadAndWrite.StdExcelModel.DataModel
 {
-    public interface IDataWorksheet
+    public interface IDataWorksheet<out IDataRange,out IDataCell>
     {
         
         string GetSheetName();
 
-        StdExcelRangeBase GetRange(int startRow, int startCol, int endRow, int endCol);
+        IDataRange GetRange(int startRow, int startCol, int endRow, int endCol);
 
-        StdExcelCellBase GetCell(int rowNum, int columnNum);
+        IDataCell GetCell(int rowNum, int columnNum);
 
         string GetCellValue(int rowNum, int columnNum);
 
@@ -33,11 +33,7 @@ namespace ExcelReadAndWrite.StdExcelModel.DataModel
 
         void SetCellFormular(string formular, int rowNum, int columnNum);
 
-        void SetRangeColor(StdExcelRangeBase range,Color color);
-        void SetCellColor(int rowNum, int columnNum, Color color);
 
-        void MergeCell(StdExcelRangeBase range);
-        void MergeCell(int startRow, int startCol, int endRow, int endCol);
 
         DataTable GetTableContent();
     }
